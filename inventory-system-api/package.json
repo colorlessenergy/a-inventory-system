@@ -12,5 +12,8 @@
     "bcrypt": "^3.0.6",
     "express": "^4.16.4",
     "mongoose": "^5.5.7"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.0"
   }
 }
