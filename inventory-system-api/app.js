@@ -4,10 +4,13 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 var app = express();
 
+const auths = require('./controllers/auths');
+
 const routes = require('./routes/index');
 const usersRouter = require('./routes/usersRouter');
 const roomsRouter = require('./routes/roomsRouter');
 const itemsRouter = require('./routes/itemsRouter');
+const authsRouter = require('./routes/authsRouter');
 
 // create req.body
 app.use(bodyParser.json());
@@ -23,6 +26,9 @@ mongoose.connect(config.dbUrl, { useNewUrlParser: true }, function (err) {
 app.use('/users', usersRouter);
 app.use('/rooms', roomsRouter);
 app.use('/items', itemsRouter);
+app.use('/auth', authsRouter);
+
+app.put('/logout', auths.validateToken, auths.logOutUser);
 
 app.use('/', routes);
 
