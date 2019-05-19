@@ -1,9 +1,17 @@
 const express = require('express');
 const config = require('./models/config/config');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 var app = express();
 
 const routes = require('./routes/index');
+const usersRouter = require('./routes/usersRouter');
+const roomsRouter = require('./routes/roomsRouter');
+const itemsRouter = require('./routes/itemsRouter');
+
+// create req.body
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 mongoose.connect(config.dbUrl, { useNewUrlParser: true }, function (err) {
   if (err) {
@@ -11,6 +19,10 @@ mongoose.connect(config.dbUrl, { useNewUrlParser: true }, function (err) {
   }
   console.log('connected to mongodb');
 });
+
+app.use('/users', usersRouter);
+app.use('/rooms', roomsRouter);
+app.use('/items', itemsRouter);
 
 app.use('/', routes);
 
