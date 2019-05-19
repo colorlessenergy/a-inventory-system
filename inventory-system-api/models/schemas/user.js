@@ -12,6 +12,17 @@ let userSchema = new Schema({
   token: String
 });
 
+// methods for validating password
+userSchema.methods.comparePassword = function (pw, callback) {
+  bcrypt.compare(pw, this.hash, function (err, isMatch) {
+    console.log(pw, isMatch, "in compare password");
+    if (err) {
+      return callback(err);
+    }
+    callback(null, isMatch);
+  });
+};
+
 userSchema.pre('save', function (next) {
   let user = this;
 
