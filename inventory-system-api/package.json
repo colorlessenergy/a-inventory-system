@@ -1,8 +1,8 @@
 {
   "name": "inventory-system-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "inventory system api",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js"
   },

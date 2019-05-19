@@ -1,0 +1,21 @@
+{
+  "name": "a-inventory-system",
+  "version": "1.0.0",
+  "description": "inventory management system",
+  "main": "app.js",
+  "scripts": {
+    "heroku-postbuild": "npm run install-server",
+    "start": "node inventory-system-api/app.js",
+    "install-server": "cd ./inventory-system-api && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/colorlessenergy/a-inventory-system.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/colorlessenergy/a-inventory-system/issues"
+  },
+  "homepage": "https://github.com/colorlessenergy/a-inventory-system#readme"
+}
