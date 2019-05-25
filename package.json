@@ -4,9 +4,10 @@
   "description": "inventory management system",
   "main": "app.js",
   "scripts": {
-    "heroku-postbuild": "npm run install-server",
+    "heroku-postbuild": "npm run install-server && npm run build-client",
     "start": "node inventory-system-api/app.js",
-    "install-server": "cd ./inventory-system-api && npm install"
+    "install-server": "cd ./inventory-system-api && npm install",
+    "build-client": "cd ./inventory-system-frontend && npm install && npm run build"
   },
   "repository": {
     "type": "git",
