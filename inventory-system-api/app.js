@@ -2,9 +2,12 @@ const express = require('express');
 const config = require('./models/config/config');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const path = require('path');
 var app = express();
 
 const auths = require('./controllers/auths');
+
+app.use(express.static(path.join(__dirname, '../inventory-system-frontend/build')));
 
 const routes = require('./routes/index');
 const usersRouter = require('./routes/usersRouter');
