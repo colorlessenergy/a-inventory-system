@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
-import RoomsList from '../../Components/RoomsList'
+import RoomsList from '../../Components/RoomsList';
+import AddRoom from './addRoom';
+import { connect } from 'react-redux';
 
 class Rooms extends Component {
-    // Data that is expected to come from the API
-    state = {
-        Rooms: [
-            { id: 0, name: 'Bread' },
-            { id: 1, name: 'Candy' },
-            { id: 2, name: 'Toys' },
-        ]
-    }
-
-    render () {
-        return (
-            <RoomsList Rooms={this.state.Rooms} />
-        )
-    }
+  render () {
+    return (
+      <div>
+        <AddRoom />
+        <RoomsList Rooms={this.props.Rooms} />
+      </div>
+    )
+  }
 }
 
-export default Rooms;
+const mapStateToProps = (state) =>{
+  return {
+    Rooms: state.rooms.rooms
+  }
+}
+
+export default connect(mapStateToProps)(Rooms);
