@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import axios from '../../services/Api';
+
 class Login extends Component {
   state = {
     email: '',
@@ -16,6 +18,17 @@ class Login extends Component {
   formSubmitHandler = event => {
     event.preventDefault();
     console.log('submitted', this.state);
+
+    axios().post('/auth/token', this.state)
+      .then(res => {
+        console.log('axios login res received', res);
+        localStorage.setItem('token', res.data.token);
+        console.log('localStorage token', localStorage.getItem('token'));
+        console.log(this.props);
+      })
+      .catch(err => {
+        console.log('axios login error receieved', err);
+      });
   }
 
   render () {
