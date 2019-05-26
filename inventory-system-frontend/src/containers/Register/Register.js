@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
-class Login extends Component {
+import axios from '../../services/Api';
+
+class Register extends Component {
   state = {
     username: '',
     email: '',
@@ -17,6 +19,16 @@ class Login extends Component {
   formSubmitHandler = event => {
     event.preventDefault();
     console.log('submitted', this.state);
+
+    axios().post('/users', this.state)
+      .then(res => {
+        console.log('axios submit res');
+        console.log(res);
+      })
+      .catch(err => {
+        console.log('axios submit err');
+        console.log(err);
+      });
   }
 
   render() {
@@ -35,10 +47,10 @@ class Login extends Component {
           <label htmlFor="password">Password: </label>
           <input id="password" type="password" onChange={this.inputChangeHandler} />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
       </form>
     )
   }
 }
 
-export default Login;
+export default Register;

@@ -2,6 +2,7 @@ const express = require('express');
 const config = require('./models/config/config');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const path = require('path');
 var app = express();
 
@@ -25,6 +26,8 @@ mongoose.connect(config.dbUrl, { useNewUrlParser: true }, function (err) {
   }
   console.log('connected to mongodb');
 });
+
+app.use(cors());
 
 app.use('/users', usersRouter);
 app.use('/rooms', roomsRouter);
