@@ -1,5 +1,6 @@
 const express = require('express');
 const rooms = require('../controllers/rooms');
+const auths = require('../controllers/auths');
 let router = express.Router();
 
 router.param('id', function (req, res, next, id) {
@@ -11,7 +12,7 @@ router.param('id', function (req, res, next, id) {
 
 router.route('/')
   .get(rooms.getRooms)
-  .post(rooms.createRoom)
+  .post(auths.validateToken, rooms.createRoom)
 
 router.route('/:id')
   .get(rooms.getRoomById)

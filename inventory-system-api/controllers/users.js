@@ -68,6 +68,20 @@ exports.createUser = function (req, res, next) {
   });
 }
 
+exports.getUserRooms = function (req, res, next) {
+  console.log('getUserRooms called');
+  User.findById(req.user.id)
+    .populate('rooms')
+    .exec(function (err, user) {
+      if (err) {
+        return next(err);
+      }
+      console.log('populated user rooms');
+      console.log(user);
+      return res.json(user.rooms);
+    });
+}
+
 exports.updateUserById = function (req, res, next) {
   console.log('update user by id called');
   // validate inputs
