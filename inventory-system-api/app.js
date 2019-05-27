@@ -41,7 +41,7 @@ app.use('/', routes);
 // development error handler
 app.use(function (err, req, res, next) {
   console.log(err);
-  return res.sendState(err.status || 500);
+  return res.sendStatus(err.status || 500);
 });
 
 app.listen(config.PORT, function () {

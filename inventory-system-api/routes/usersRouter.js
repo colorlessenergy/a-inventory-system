@@ -1,5 +1,7 @@
 const express = require('express');
 const users = require('../controllers/users');
+const auths = require('../controllers/auths');
+
 let router = express.Router();
 
 router.param('id', function (req, res, next, id) {
@@ -8,6 +10,9 @@ router.param('id', function (req, res, next, id) {
   }
   return next();
 });
+
+router.route('/rooms')
+  .get(auths.validateToken, users.getUserRooms);
 
 router.route('/')
   .get(users.getUsers)

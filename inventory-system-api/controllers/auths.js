@@ -70,7 +70,7 @@ exports.loginUser = function (req, res, next) {
 exports.validateToken = function (req, res, next) {
   console.log('validateToken ran');
 
-  var token = req.body.token || req.query.token || req.headers['x-access-token'] || req.headers['authorization'];
+  var token = req.body.token || req.headers['authorization'];
   console.log('token that was caught', token);
 
   if (!token) {
