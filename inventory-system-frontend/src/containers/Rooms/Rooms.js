@@ -1,23 +1,38 @@
 import React, { Component } from 'react';
-import RoomsList from '../../Components/RoomsList';
-import AddRoom from './addRoom';
 import { connect } from 'react-redux';
 
+import RoomsList from '../../Components/RoomsList';
+import AddRoom from './AddRoom';
+import { initRoomsAction } from '../../redux/actions/roomsAction';
+
 class Rooms extends Component {
+  componentDidMount() {
+    console.log('rooms mounted');
+    this.props.getRooms();
+  }
+
   render () {
     return (
       <div>
         <AddRoom />
-        <RoomsList Rooms={this.props.Rooms} />
+        <RoomsList rooms={this.props.rooms} />
       </div>
-    )
+    );
   }
-}
+};
 
-const mapStateToProps = (state) =>{
+const mapStateToProps = (state) => {
   return {
-    Rooms: state.rooms.rooms
-  }
-}
+    rooms: state.rooms.rooms
+  };
+};
 
-export default connect(mapStateToProps)(Rooms);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getRooms: () => {
+      dispatch(initRoomsAction());
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Rooms);

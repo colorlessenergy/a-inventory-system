@@ -63,7 +63,7 @@ exports.createRoom = function (req, res, next) {
           return next(err);
         }
         console.log('updated user', user);
-        return res.sendStatus(200);
+        return res.json(room);
       });
     });
   });

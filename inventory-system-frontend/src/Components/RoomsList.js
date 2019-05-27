@@ -1,25 +1,25 @@
 import React from 'react';
 
-function RoomsList ({ Rooms }) {
-  console.log(Rooms);
+function RoomsList ({ rooms }) {
+  console.log(rooms, 'rooms in the props of RoomsList');
 
-  const RoomsList = Rooms.length ? (
-    Rooms.map((room) => {
+  const roomsList = rooms.length ? (
+    rooms.map((room) => {
       return (
-        <div key={room.id}>
-          <p>{room.roomName}</p>
+        <div key={room._id}>
+          <p>{room.name}</p>
         </div>
-      )
+      );
     })
   ) : (
-    <p>you have no rooms create one!</p>
-  )
+    <p>you have no rooms, create one!</p>
+  );
 
   return (
     <div className="rooms">
-      { RoomsList }
+      { roomsList }
     </div>
-  )  
-}
+  );
+};
 
 export default RoomsList;
