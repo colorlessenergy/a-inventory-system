@@ -15,7 +15,7 @@ router.route('/')
   .post(auths.validateToken, rooms.createRoom)
 
 router.route('/:id')
-  .get(rooms.getRoomById)
+  .get(auths.validateToken, rooms.getRoomById)
   .put(rooms.updateRoomById)
   .delete(rooms.deleteRoomById)
 
