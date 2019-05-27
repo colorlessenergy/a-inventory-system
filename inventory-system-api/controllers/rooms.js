@@ -1,5 +1,6 @@
 const Room = require('../models/schemas/room');
 const User = require('../models/schemas/user');
+const mongoose = require('mongoose');
 
 exports.getRooms = function (req, res, next) {
   console.log('get rooms called');
@@ -36,7 +37,10 @@ exports.createRoom = function (req, res, next) {
     roomData.name = req.body.name;
   }
   roomData.creator = req.user.id;
-  roomData.code = Math.floor(Math.random() * 1000000000000);
+  console.log('creating new mongoose id');
+  let mongooseId = new mongoose.mongo.ObjectId();
+  roomData.code = mongooseId;
+  console.log('roomData code', roomData.code);
   roomData.users = [req.user.id];
 
   let newRoom = new Room(roomData);
@@ -44,7 +48,7 @@ exports.createRoom = function (req, res, next) {
     if (err) {
       return next(err);
     }
-    console.log('saved room');
+    console.log('saved room', room);
     User.findById(req.user.id, function (err, user) {
       if (err) {
         return next(err);
@@ -52,20 +56,18 @@ exports.createRoom = function (req, res, next) {
       if (!user) {
         return res.status(404).send('No user found with that ID');
       }
-      console.log('found user');
-      console.log(user);
+      console.log('found user', user);
       user.rooms.push(room.id);
       user.save(function (err, user) {
         if (err) {
           return next(err);
         }
-        console.log('updated user');
-        console.log(user);
+        console.log('updated user', user);
         return res.sendStatus(200);
-      })
+      });
     });
   });
-}
+};
 
 exports.updateRoomById = function (req, res, next) {
   console.log('update room by id called');
