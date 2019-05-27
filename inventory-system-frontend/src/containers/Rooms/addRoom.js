@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { addRoomAction } from '../../redux/actions/roomsAction'
 import { connect } from 'react-redux'
+import Api from '../../services/Api';
 
 class addRoom extends Component {
 
@@ -12,6 +13,14 @@ class addRoom extends Component {
   createRoom = (ev) => {
     ev.preventDefault();
 
+    Api().post('/rooms', { name: this.state.roomName })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      
     this.props.createRoom(this.state);
   }
 
