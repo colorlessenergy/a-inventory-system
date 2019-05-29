@@ -69,6 +69,27 @@ exports.createRoom = function (req, res, next) {
   });
 };
 
+/**
+  look for a room and return its items
+  @param {String} req.body.id - room id
+  @return {Object} - items
+*/
+
+exports.getItemsFromRoom = function (req, res, next) {
+  Room.findById(req.body.id)
+    .populate('items')
+    .exec(function (err, room) {
+      if (err) {
+        return next(err);
+      }
+      if (!room) {
+        return res.status(404).send('No room with that ID');
+      }
+      console.log('populated room items', room);
+      return res.json(room.items);
+    });
+};
+
 exports.updateRoomById = function (req, res, next) {
   console.log('update room by id called');
   // validate inputs
