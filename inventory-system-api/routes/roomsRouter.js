@@ -15,6 +15,7 @@ router.route('/')
   .post(auths.validateToken, rooms.createRoom)
 
 router.get('/items', auths.validateToken, rooms.getItemsFromRoom);
+router.put('/join', auths.validateToken, rooms.joinRoomByCode);
 
 router.route('/:id')
   .get(auths.validateToken, rooms.getRoomById)
