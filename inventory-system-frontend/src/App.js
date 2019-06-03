@@ -4,7 +4,7 @@ import {Route, HashRouter, Link} from 'react-router-dom';
 import Login from './containers/Login/Login';
 import Register from './containers/Register/Register';
 import Rooms from './containers/Rooms/Rooms';
-import Items from './containers/items/Items';
+import Items from './containers/Items/Items';
 
 class App extends Component {
   render () {
@@ -18,7 +18,7 @@ class App extends Component {
           <Route path='/login' exact component={Login} />
           <Route path='/rooms' exact component={Rooms} />
           <Route path='/register' exact component={Register} />
-          <Route path='/item' exact component={Items} />
+          <Route path='/items' exact component={Items} />
         </div>
       </HashRouter>
     );
