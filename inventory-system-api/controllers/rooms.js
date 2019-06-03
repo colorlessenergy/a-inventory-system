@@ -90,6 +90,49 @@ exports.getItemsFromRoom = function (req, res, next) {
     });
 };
 
+/**
+  Join a room and add the user to the rooms db
+  @param {String} req.body.code - room code
+  @param {String} req.user.id - user's id
+*/
+exports.joinRoomByCode = function (req, res, next) {
+  console.log('joinRoomByCode called');
+  // look for room to join with code
+  Room.findOne({code: req.body.code}, function (err, room) {
+    if (err) {
+      return next(err);
+    }
+    if (!room) {
+      return res.status(404).send('No room with that code');
+    }
+    console.log('found room');
+    console.log(room);
+    console.log('checking if user is already in the room');
+    let userIndex = room.users.findIndex(user => {
+      console.log(user);
+      console.log(typeof user._id, user._id);
+      console.log(typeof req.user.id, req.user.id);
+      return user._id == req.user.id;
+    });
+    console.log('userIndex', userIndex, userIndex === -1);
+    // join room iff not in it already
+    if (userIndex == -1) {
+      console.log('user is not in the room! add user to the room, save, and return room');
+      room.users.push(req.user.id);
+      room.save(function (err, room) {
+        if (err) {
+          return next(err);
+        }
+          console.log('saved room');
+          return res.json(room);
+      });
+    } else {
+      console.log('user is already in the room');
+      return res.status(400).send('User is already in the room');
+    }
+  });
+};
+
 exports.updateRoomById = function (req, res, next) {
   console.log('update room by id called');
   // validate inputs
