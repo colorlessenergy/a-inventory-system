@@ -9,7 +9,7 @@ function RoomsList ({ rooms }) {
       return (
         <div key={room._id}>
           <p>
-            <Link to='/items'>
+            <Link to={'/rooms/' + room._id}>
               {room.name}
             </Link>
           </p>
