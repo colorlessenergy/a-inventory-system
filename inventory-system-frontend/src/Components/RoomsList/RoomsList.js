@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function RoomsList ({ rooms }) {
   console.log(rooms, 'rooms in the props of RoomsList');
@@ -7,7 +8,11 @@ function RoomsList ({ rooms }) {
     rooms.map((room) => {
       return (
         <div key={room._id}>
-          <p>{room.name}</p>
+          <p>
+            <Link to='/item'>
+              {room.name}
+            </Link>
+          </p>
         </div>
       );
     })
