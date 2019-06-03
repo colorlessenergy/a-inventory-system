@@ -16,9 +16,9 @@ class App extends Component {
           <Link to="/register">register</Link>
           <Link to="/rooms">rooms</Link>
           <Route path='/login' exact component={Login} />
+          <Route path='/rooms/:id' exact component={Items} />
           <Route path='/rooms' exact component={Rooms} />
           <Route path='/register' exact component={Register} />
-          <Route path='/items' exact component={Items} />
         </div>
       </HashRouter>
     );

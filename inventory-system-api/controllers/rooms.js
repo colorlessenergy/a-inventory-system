@@ -69,14 +69,23 @@ exports.createRoom = function (req, res, next) {
   });
 };
 
+// ================================================
+//   UPDATE:
+//   changed req.body.id to req.header('id')
+//   since get requests dont normally have req.body
+// ================================================
+
 /**
   look for a room and return its items
-  @param {String} req.body.id - room id
+  @param {String} req.headers.id - room id
   @return {Object} - items
 */
 
 exports.getItemsFromRoom = function (req, res, next) {
-  Room.findById(req.body.id)
+  console.log('GET /rooms/items called getItemsFromRoom');
+  console.log('req.headers', req.headers);
+  console.log('req.headers.id', req.header('id'));
+  Room.findById(req.header('id'))
     .populate('items')
     .exec(function (err, room) {
       if (err) {
