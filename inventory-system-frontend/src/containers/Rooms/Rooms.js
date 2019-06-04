@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import RoomsList from '../../Components/RoomsList/RoomsList';
+import RoomsList from '../../Components/UI/List';
 import AddRoom from './addRoom';
 import { initRoomsAction } from '../../redux/actions/roomsAction';
 
@@ -15,7 +15,7 @@ class Rooms extends Component {
     return (
       <div>
         <AddRoom />
-        <RoomsList rooms={this.props.rooms} />
+        <RoomsList url={'/rooms/'} items={this.props.rooms} />
       </div>
     );
   }
