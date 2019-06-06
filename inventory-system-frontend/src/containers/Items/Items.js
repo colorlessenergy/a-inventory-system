@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import { initItemsAction } from '../../redux/actions/itemsAction';
 import { connect } from 'react-redux';
 
+import ItemsList from '../../Components/UI/List';
+
+
 /**
  we need to pass the 'id' route parameter to the initItemsAction for the request to get items
 */
@@ -21,11 +24,7 @@ class Items extends Component {
   render () {
     console.log('items from this.props.items from redux', this.props.items);
     return (
-      <ul>
-        <li>item 1</li>
-        <li>item 2</li>
-        <li>item 3</li>
-      </ul>
+      <ItemsList url='/items/' items={this.props.items} />
     );
   }
 };
