@@ -89,25 +89,52 @@ exports.createItem = function (req, res, next) {
   });
 };
 
+/**
+  Update an item and save it to the db
+  @param {String} req.body.name - item name
+  @param {String} req.body.amount - item amount
+  @param {String} req.params.id - item id
+  @return {Object} - updated item
+*/
+
 exports.updateItemById = function (req, res, next) {
-  console.log('update item by id called');
+  console.log('updateItemById called');
   // validate inputs
   let itemData = {};
   if (req.body.name) {
-    itemData.name = req.body.name;
-  }
-  if (req.body.amount) {
-    itemData.amount = req.body.amount;
+    if (typeof req.body.name === 'string') {
+      itemData.name = req.body.name;
+    } else {
+      return res.status(400).send('Invalid item name');
+    }
   }
 
-  Item.findByIdAndUpdate(req.params.id, itemData, { new: true, upsert: true}, function (err, item) {
+  if (req.body.amount) {
+    if (typeof req.body.amount === 'string') {
+      console.log('have an item amount', req.body.amount);
+      itemData.amount = Number(req.body.amount);
+      console.log('converted item amount to number', itemData.amount);
+
+      if (Number.isNaN(itemData.amount)) {
+        console.log('item amount is NaN', itemData.amount);
+        return res.status(400).send('invalid item amount');
+      }
+      console.log('passed item amount number check', itemData.amount);
+      itemData.amount = req.body.amount;
+    } else {
+      return res.status(400).send('Invalid item Amount');
+    }
+  }
+
+  // look for item and update it with itemData
+  Item.findByIdAndUpdate(req.params.id, itemData, { new: true, upsert: true }, function (err, item) {
     if (err) {
       return next(err);
     }
     if (!item) {
       return res.status(404).send('No item with that ID');
     }
-    return res.sendStatus(200);
+    return res.json(item);
   });
 };
 
