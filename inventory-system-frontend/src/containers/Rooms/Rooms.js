@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import RoomsList from '../../Components/UI/List';
-import AddRoom from './addRoom';
+import AddRoom from './AddRoom';
 import { initRoomsAction } from '../../redux/actions/roomsAction';
 
 class Rooms extends Component {

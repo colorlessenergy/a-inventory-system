@@ -3,7 +3,7 @@ import { initItemsAction } from '../../redux/actions/itemsAction';
 import { connect } from 'react-redux';
 
 import ItemsList from '../../Components/UI/List';
-import AddItem from './addItem';
+import AddItem from './AddItem';
 
 
 /**
