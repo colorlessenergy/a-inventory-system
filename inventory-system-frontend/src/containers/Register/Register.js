@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import axios from '../../services/Api';
+import Form from '../../Components/UI/Form/Form';
 
 class Register extends Component {
   state = {
@@ -32,24 +33,34 @@ class Register extends Component {
   }
 
   render() {
+    let inputsData = [
+      {
+        key: 'input-username',
+        for: 'username',
+        labelText: 'Username: ',
+        type: 'text'
+      },
+      {
+        key: 'input-email',
+        for: 'email',
+        labelText: 'Email: ',
+        type: 'email'
+      },
+      {
+        key: 'input-password',
+        for: 'password',
+        labelText: 'Password: ',
+        type: 'Password'
+      }
+    ];
     return (
-      <form className='form' onSubmit={this.formSubmitHandler}>
-        <h1>Register</h1>
-        <div>
-          <label htmlFor="username">Username: </label>
-          <input id="username" type="text" onChange={this.inputChangeHandler} />
-        </div>
-        <div>
-          <label htmlFor="email">Email: </label>
-          <input id="email" type="email" onChange={this.inputChangeHandler} />
-        </div>
-        <div>
-          <label htmlFor="password">Password: </label>
-          <input id="password" type="password" onChange={this.inputChangeHandler} />
-        </div>
-        <button type="submit">Register</button>
-      </form>
-    )
+      <Form
+        formTitle='Register'
+        inputsData={inputsData} 
+        onChange={this.inputChangeHandler}
+        onSubmit={this.formSubmitHandler}
+        buttonText='Register' />
+    );
   }
 }
 
