@@ -8,7 +8,8 @@ import AddItem from './AddItem';
 
 /**
  we need to pass the 'id' route parameter to the initItemsAction for the request to get items
-*/
+ we need to store this in a variable because we don't have access to the paramater of the url in the mapDispatchToProps
+ */
 let roomId = '';
 
 class Items extends Component {

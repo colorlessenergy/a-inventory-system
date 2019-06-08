@@ -8,6 +8,13 @@ const initState = {
 
 const itemsReducer = (state=initState, action) => {
   switch(action.type) {
+    case 'ADD_ITEM':
+      let newItems = [...state.items, action.item]
+      return {
+        ...state,
+        items: newItems
+      }
+
     case 'INIT_ITEMS':
       console.log('INIT_ITEMS', action);
       let items = action.items.slice();
