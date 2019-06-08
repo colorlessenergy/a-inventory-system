@@ -1,5 +1,15 @@
 import Api from '../../services/Api';
 
+export const addItemAction = (item) => {
+  return (dispatch, getState) => {
+    console.log('addItemAction');
+    console.log('item', item);
+
+    // adding single item
+    dispatch({ type: 'ADD_ITEM', item: item })
+  }
+}
+
 export const initItemsAction = (roomId) => {
   return (dispatch, getState) => {
     console.log('in initItemsAction');
