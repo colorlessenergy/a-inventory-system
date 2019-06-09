@@ -1,5 +1,7 @@
 import React from 'react';
 
+import classes from './form.module.css'
+
 /**
   form to handle user input
   @prop {String} formTitle - form title
@@ -17,9 +19,9 @@ const Form = (props) => {
   console.log('props', props);
   let inputList = props.inputsData.map((input) => {
     return (
-      <div key={input.key}>
-        <label htmlFor={input.for}>{input.labelText}</label>
-        <input id={input.for} type={input.type} onChange={props.onChange} />
+      <div className={classes.form__group} key={input.key}>
+        <label className={classes.form__label} htmlFor={input.for}>{input.labelText}</label>
+        <input className={classes.form__input} id={input.for} type={input.type} onChange={props.onChange} />
       </div>
     );
   });
@@ -27,10 +29,10 @@ const Form = (props) => {
   
   return (
     <React.Fragment>
-      <form onSubmit={props.onSubmit}>
-        <h1>{props.formTitle}</h1>
+      <form className={classes.form} onSubmit={props.onSubmit}>
+        <h1 className={classes.form__title}>{props.formTitle}</h1>
         {inputList}
-        <button type="submit">{props.buttonText}</button>
+        <button className={classes.form__button} type="submit">{props.buttonText}</button>
       </form>
     </React.Fragment>
   );
