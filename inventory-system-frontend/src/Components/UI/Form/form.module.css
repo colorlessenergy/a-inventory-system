@@ -1,0 +1,50 @@
+.form {
+  margin-top: 49px;
+  /* 
+    text align center was moved into the form class so
+    the button and the title will not need to have it.
+  */
+  text-align: center;
+}
+
+.form__title {
+  font-size: 36px;
+  margin-bottom: 49px;
+  margin-top: 0;
+}
+
+.form__group {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 84%;
+  margin-top: 39px;
+}
+
+.form__label {
+  font-size: 18px;
+  line-height: 21px;
+  margin-bottom: 23px;
+}
+
+.form__input {
+  border: none;
+  border-bottom: 1px solid #021A3F;
+  font-size: 23px;
+  line-height: 27px;
+  outline: none;
+  width: 100%;
+}
+
+.form__button {
+  background-color: #DCEAFF;
+  border: none;
+  border-radius: 10px;
+  font-size: 24px;
+  letter-spacing: 1px;
+  line-height: 28px;
+  margin-top: 39px;
+  outline: none;
+  padding: 22px 113px;
+}
