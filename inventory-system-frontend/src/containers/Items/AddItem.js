@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import Form from '../../Components/UI/Form/Form'
 import { connect } from 'react-redux'
 import { addItemAction } from '../../redux/actions/itemsAction';
-import { withRouter } from 'react-router-dom';
-
-
+import { withRouter, Link } from 'react-router-dom';
 import Api from '../../services/Api';
 
+import classes from './AddItem.module.css'
 
 class AddItem extends Component {
   // this is the data needed to create a item in our API
@@ -38,6 +37,8 @@ class AddItem extends Component {
 
         document.querySelector('form').name.value = '';
         document.querySelector('form').amount.value = '';
+
+        this.props.history.push('/rooms/' + this.props.match.params.id);
       })
       .catch(err => console.log(err));
     console.log('creating a item', this.state);
@@ -50,12 +51,19 @@ class AddItem extends Component {
     ]
 
     return (
-      <Form 
-        inputsData={inputsData}
-        formTitle='create a item'
-        buttonText='create new item'
-        onChange={this.inputChangeHandler}
-        onSubmit={this.submitHandler} />
+      <React.Fragment>
+        <p className={classes["link-container"]}>
+          <Link to={'/rooms/' + this.props.match.params.id}>
+            go back to items
+          </Link>
+        </p>
+        <Form
+          inputsData={inputsData}
+          formTitle='create a item'
+          buttonText='create'
+          onChange={this.inputChangeHandler}
+          onSubmit={this.submitHandler} />
+      </React.Fragment>
     )
   }
 }
