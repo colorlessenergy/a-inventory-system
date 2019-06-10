@@ -12,6 +12,7 @@ import AddItem from './containers/Items/AddItem';
 import UpdateItem from './containers/Items/UpdateItem/UpdateItem';
 
 import Settings from './Components/Settings';
+import RoomsSettings from './containers/Settings/RoomsSettings';
 
 
 class App extends Component {
@@ -31,6 +32,7 @@ class App extends Component {
           <Route path='/register' exact component={Register} />
           <Route path='/items/update/:id' exact component={UpdateItem} />
           <Route path='/settings' exact component={Settings} />
+          <Route path='/settings/rooms' exact component={RoomsSettings} />
         </div>
       </HashRouter>
     );
