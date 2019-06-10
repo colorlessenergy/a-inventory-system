@@ -48,7 +48,7 @@ function List ({ items, url }) {
     })
    } 
    else {
-     if (url === '/items/') {
+     if (url === '/items/update/') {
        return (
          <p>there are no items, create one!</p>
        );

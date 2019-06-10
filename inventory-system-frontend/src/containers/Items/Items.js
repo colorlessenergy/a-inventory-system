@@ -29,7 +29,7 @@ class Items extends Component {
     return (
       <React.Fragment>
         <Link to={'/items/create/' + this.props.match.params.id}>create new item</Link> 
-        <ItemsList url='/items/' items={this.props.items} />
+        <ItemsList url='/items/update/' items={this.props.items} />
       </React.Fragment>
     );
   }
