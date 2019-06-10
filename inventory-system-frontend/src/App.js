@@ -11,6 +11,9 @@ import Items from './containers/Items/Items';
 import AddItem from './containers/Items/AddItem';
 import UpdateItem from './containers/Items/UpdateItem/UpdateItem';
 
+import Settings from './Components/Settings';
+
+
 class App extends Component {
   render () {
     return (
@@ -20,12 +23,14 @@ class App extends Component {
           <Link to="/login">Login</Link>
           <Link to="/register">register</Link>
           <Link to="/rooms">rooms</Link>
+          <Link to="/settings">settings</Link>
           <Route path='/login' exact component={Login} />
           <Route path='/rooms/:id' exact component={Items} />
           <Route path='/items/create/:id' exact component={AddItem} />
           <Route path='/rooms' exact component={Rooms} />
           <Route path='/register' exact component={Register} />
           <Route path='/items/update/:id' exact component={UpdateItem} />
+          <Route path='/settings' exact component={Settings} />
         </div>
       </HashRouter>
     );
