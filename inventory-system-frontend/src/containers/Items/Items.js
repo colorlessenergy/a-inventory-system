@@ -3,7 +3,8 @@ import { initItemsAction } from '../../redux/actions/itemsAction';
 import { connect } from 'react-redux';
 
 import ItemsList from '../../Components/UI/List';
-import AddItem from './AddItem';
+import { Link } from 'react-router-dom';
+
 
 
 /**
@@ -27,7 +28,7 @@ class Items extends Component {
     console.log('items from this.props.items from redux', this.props.items);
     return (
       <React.Fragment>
-        <AddItem />
+        <Link to={'/items/create/' + this.props.match.params.id}>create new item</Link> 
         <ItemsList url='/items/' items={this.props.items} />
       </React.Fragment>
     );
