@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import Form from '../../Components/UI/Form/Form'
+import { Link } from 'react-router-dom';
+import Form from '../../Components/UI/Form/Form';
 
 import Api from '../../services/Api';
+
+import classes from '../Items/AddItem.module.css';
+
 
 class UpdateRoom extends Component {
   state = {
@@ -44,13 +48,20 @@ class UpdateRoom extends Component {
       }
     ]
     return (
-      <Form
-        formTitle="Update Room"
-        inputsData={inputsData}
-        onChange={this.inputChangeHandler}
-        onSubmit={this.submitHandler}
-        buttonText='Update Room'>
-      </Form>
+      <React.Fragment>
+        <p className={classes["link-container"]}>
+          <Link to='/settings/rooms'>
+            go back to items
+          </Link>
+        </p>
+        <Form
+          formTitle="Update Room"
+          inputsData={inputsData}
+          onChange={this.inputChangeHandler}
+          onSubmit={this.submitHandler}
+          buttonText='Update Room'>
+        </Form>
+      </React.Fragment>
     )
   }
 }
