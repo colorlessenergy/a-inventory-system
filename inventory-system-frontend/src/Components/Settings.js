@@ -6,10 +6,10 @@ const settings = () => {
   return (
     <React.Fragment>
       <p>
-        <Link to='/user/settings'>user settings</Link>
+        <Link to='/settings/user'>user settings</Link>
       </p>
       <p>
-        <Link to='/room/settings'>room settings</Link>
+        <Link to='/settings/rooms'>room settings</Link>
       </p>
     </React.Fragment>
   );
