@@ -147,10 +147,10 @@ exports.updateRoomById = function (req, res, next) {
   // validate inputs
   let roomData = {};
   if (req.body.name) {
-    roomData = req.body.name;
+    roomData.name = req.body.name;
   }
 
-  Room.findByIdAndUpdate(req.params.id, roomData, {new: true, upsert: true}, function (err, room) {
+  Room.findByIdAndUpdate(req.params.id, roomData, { new: true }, function (err, room) {
     if (err) {
       return next(err);
     }

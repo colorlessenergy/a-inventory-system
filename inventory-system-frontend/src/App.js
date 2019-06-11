@@ -13,6 +13,7 @@ import UpdateItem from './containers/Items/UpdateItem/UpdateItem';
 
 import Settings from './Components/Settings';
 import RoomsSettings from './containers/Settings/RoomsSettings';
+import UpdateRoom from './containers/Rooms/UpdateRoom';
 
 
 class App extends Component {
@@ -27,6 +28,7 @@ class App extends Component {
           <Link to="/settings">settings</Link>
           <Route path='/login' exact component={Login} />
           <Route path='/rooms/:id' exact component={Items} />
+          <Route path='/rooms/update/:id' exact component={UpdateRoom} />
           <Route path='/items/create/:id' exact component={AddItem} />
           <Route path='/rooms' exact component={Rooms} />
           <Route path='/register' exact component={Register} />
