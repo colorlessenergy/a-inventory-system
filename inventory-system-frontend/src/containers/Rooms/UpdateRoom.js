@@ -51,7 +51,7 @@ class UpdateRoom extends Component {
       <React.Fragment>
         <p className={classes["link-container"]}>
           <Link to='/settings/rooms'>
-            go back to items
+            go back to rooms
           </Link>
         </p>
         <Form

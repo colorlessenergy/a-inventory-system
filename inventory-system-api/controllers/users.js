@@ -1,5 +1,6 @@
 const User = require('../models/schemas/user');
 const config = require('../models/config/config');
+const bcrypt = require('bcrypt');
 
 exports.getUsers = function (req, res, next) {
   console.log('get users called');
@@ -89,40 +90,48 @@ exports.updateUserById = function (req, res, next) {
   if (req.body.email) {
     userData.email = req.body.email;
   }
+
+  if (req.body.username) {
+    userData.username = req.body.username;
+  }
+
   if (req.body.password) {
     userData.hash = req.body.password;
   }
+
   if (req.body.hash) {
     userData.hash = req.body.hash;
   }
+
   // hash pw IFF theres a pw before updating since findByIdAndUpdate bypasses the mongoose pre 'save' hook
-  if (req.body.hash) {
+  if (userData.hash) {
     bcrypt.genSalt(config.saltRounds, function (err, salt) {
       if (err) {
         return next(err);
       }
+
       bcrypt.hash(userData.hash, salt, function (err, hash) {
         if (err) {
           return next(err);
         }
         // store hashed pw in userData object
         userData.hash = hash;
+
+        User.findByIdAndUpdate(req.user.id, userData, { new: true, upsert: true }, function (err, user) {
+          if (err) {
+            if (err.code === 11000) {
+              return res.status(400).send('User email or username already registered');
+            }
+            return next(err);
+          }
+          if (!user) {
+            return res.status(404).send('No user with that ID');
+          }
+          return res.sendStatus(200);
+        });
       });
     })
   }
-  
-  User.findByIdAndUpdate(req.params.id, userData, { new: true, upsert: true }, function (err, user) {
-    if (err) {
-      if (err.code === 11000) {
-        return res.status(400).send('User email or username already registered');
-      }
-      return next(err);
-    }
-    if (!user) {
-      return res.status(404).send('No user with that ID');
-    }
-    return res.sendStatus(200);
-  });
 }
 
 exports.deleteUserById = function (req, res, next) {
