@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom';
  */
 
 function List ({ items, url }) {
-  console.log(items, 'items items that were passed in by props');
+  console.log(items, 'items that were passed in by props');
 
   let Items;
   if (items.length !== 0) { 

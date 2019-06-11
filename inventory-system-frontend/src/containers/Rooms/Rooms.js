@@ -7,7 +7,7 @@ import { initRoomsAction } from '../../redux/actions/roomsAction';
 
 class Rooms extends Component {
   componentDidMount() {
-    console.log('rooms mounted');
+    console.log('rooms mounted ', this.props.rooms);
     this.props.getRooms();
   }
 

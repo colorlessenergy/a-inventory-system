@@ -12,7 +12,7 @@ class RoomsSettings extends Component {
 
   render () {
     return (
-      <RoomsList url={'/room/'} items={this.props.rooms}></RoomsList>
+      <RoomsList url={'/rooms/update/'} items={this.props.rooms}></RoomsList>
       )
     }
 }
