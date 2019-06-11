@@ -16,11 +16,11 @@ router.route('/rooms')
 
 router.route('/')
   .get(users.getUsers)
-  .post(users.createUser);
+  .post(users.createUser)
+  .put(auths.validateToken, users.updateUserById);
 
 router.route('/:id')
   .get(users.getUserById)
-  .put(users.updateUserById)
   .delete(users.deleteUserById);
 
 module.exports = router;
