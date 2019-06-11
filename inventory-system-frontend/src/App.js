@@ -13,6 +13,8 @@ import UpdateItem from './containers/Items/UpdateItem/UpdateItem';
 
 import Settings from './Components/Settings';
 import RoomsSettings from './containers/Settings/RoomsSettings';
+import UserSettings from './containers/Settings/UserSettings';
+
 import UpdateRoom from './containers/Rooms/UpdateRoom';
 
 
@@ -35,6 +37,7 @@ class App extends Component {
           <Route path='/items/update/:id' exact component={UpdateItem} />
           <Route path='/settings' exact component={Settings} />
           <Route path='/settings/rooms' exact component={RoomsSettings} />
+          <Route path='/settings/user' exact component={UserSettings} />
         </div>
       </HashRouter>
     );
