@@ -27,25 +27,57 @@ exports.getUserById = function (req, res, next) {
   });
 }
 
+/**
+  Create a user and save it to the db
+  @param {String} req.body.username - username
+  @param {String} req.body.email - user email
+  @param {String} req.body.password - user password
+  @return {Object} - 200 status
+*/
+
 exports.createUser = function (req, res, next) {
-  console.log('create user called');
+  console.log('createUser called');
   // validate inputs
-  console.log(req.body);
-  if (typeof req.body.email !== 'string') {
-    return res.status(400).send('Invalid user email');
-  }
-  if (typeof req.body.password !== 'string') {
-    return res.status(400).send('Invalid user password');
-  }
+  console.log(req.body.username, typeof req.body.username);
+  console.log(req.body.email, typeof req.body.email);
+  console.log(req.body.password, typeof req.body.password);
+
   if (typeof req.body.username !== 'string') {
+    console.log('username is not a string');
+    console.log(req.body.username, typeof req.body.username);
+
     return res.status(400).send('Invalid username');
   }
+  if (typeof req.body.email !== 'string') {
+    console.log('email is not a string');
+    console.log(req.body.email, typeof req.body.email);
+
+    return res.status(400).send('Invalid user email');
+  }
+  if (req.body.password && typeof req.body.password !== 'string') {
+    console.log('password is not a string');
+    console.log(req.body.password, typeof req.body.password);
+
+    return res.status(400).send('Invalid user password');
+  }
+  if (req.body.hash && typeof req.body.hash !== 'string') {
+    console.log('hash is not a string');
+    console.log(req.body.hash, typeof req.body.hash);
+
+    return res.status(400).send('Invalid user password');
+  }
+
   // http://emailregex.com
   if (!req.body.email || !(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(req.body.email))) {
+    console.log('email did not pass regex test');
+    console.log(req.body.email, typeof req.body.hash);
+    
     return res.status(400).send('Invalid user email');
   }
 
+  // adding data to an object to create a user
   let userData = {};
+  userData.username = req.body.username;
   userData.email = req.body.email;
   if (req.body.password) {
     userData.hash = req.body.password;
@@ -53,17 +85,21 @@ exports.createUser = function (req, res, next) {
   if (req.body.hash) {
     userData.hash = req.body.hash;
   }
-  userData.username = req.body.username;
 
   let newUser = new User(userData);
+
+  console.log('saving user to db');
+  
   newUser.save(function (err, user) {
-    console.log('saving');
     if (err) {
-      console.log(err);
+      console.log('ERR in saving user');
+      console.log(err.code);
       if (err.code === 11000) {
         return res.status(400).send('User email or username already registered');
       }
+      return next(err);
     }
+    console.log('user created');
     console.log(user);
     return res.sendStatus(200);
   });

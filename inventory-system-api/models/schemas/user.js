@@ -46,13 +46,16 @@ userSchema.pre('save', function (next) {
       return next(err);
     }
     console.log('generated salt');
+    console.log('salt', salt);
+    console.log('pre user.hash', user.hash);
     bcrypt.hash(user.hash, salt, function (err, hash) {
       if (err) {
         return next(err);
       }
-      console.log('hashed and saved');
+      console.log('hashed pw and saved');
       user.hash = hash;
-      return next();
+      console.log('hashed user.hash', user.hash);
+      next();
     });
   });
 });
