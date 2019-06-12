@@ -9,14 +9,25 @@ const config = require('../models/config/config');
   // check if the passwords match
   // if all are true
     // create and return a token containing the user's: id and email
+/**
+  find a user and compare passwords
+  @param {String} req.body.email - user email
+  @param {String} req.body.password - user password
+  @return {Object} token - user token
+*/
+
 exports.loginUser = function (req, res, next) {
-  console.log('loginUser ran');
+  console.log('loginUser called');
+  console.log(req.body.email, typeof req.body.email);
+  console.log(req.body.password, typeof req.body.password);
+  // validate inputs
   if (typeof req.body.email !== 'string') {
     return res.status(400).send('Missing user email');
   }
   if (typeof req.body.password !== 'string') {
     return res.status(400).send('Missing user password');
   }
+  
   console.log('looking for user');
 
   User.findOne({email: req.body.email}, function (err, user) {
