@@ -1,0 +1,49 @@
+/*
+  =====================================================================
+  INLINE FORM
+  =====================================================================
+*/
+
+.form--inline {
+  margin-top: 49px;
+  text-align: center;
+}
+
+.form__group--inline {
+  display: flex;
+  align-items: bottom;
+  width: 100%;
+}
+
+.form__label--inline {
+  font-size: 18px;
+  display: flex;
+  line-height: 21px;
+  width: 50%;
+  margin: 0 50px 0 10px;
+}
+
+.form__input--inline {
+  border: none;
+  border-bottom: 1px solid #021A3F;
+  font-size: 1em;
+  outline: none;
+  width: 100%;
+}
+
+.form__button--inline {
+  background-color: #DCEAFF;
+  border: none;
+  border-radius: 10px;
+  color: #021A3F;
+  font-size: 1em;
+  letter-spacing: 1px;
+  outline: none;
+  padding: 16px 30px;
+}
+
+@media only screen and (min-width: 600px) {
+  .form__label--inline {
+    width: 30%;
+  }
+}

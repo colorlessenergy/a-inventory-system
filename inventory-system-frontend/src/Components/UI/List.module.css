@@ -1,0 +1,33 @@
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.room {
+
+  background-color: #021A3F;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  margin: 10px;
+  padding: 5px;
+
+  width: 200px;
+  height: 200px;
+  overflow: auto;
+}
+
+.room__text {
+  margin: 0;
+  text-align: center;
+}
+
+.room__link {
+  color: white;
+  font-size: 1.5em;
+  text-decoration: none;
+  word-break: break-word;
+}
