@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import classes from './List.module.css';
 
 /**
  * 
@@ -21,6 +22,9 @@ function List ({ items, url }) {
   if (items.length !== 0) { 
     Items = items.map((item) => {
       if (item.amount) {
+        // ==========
+        // ITEMS
+        // ==========
         return (
           <div key={item._id}>
             <p>
@@ -34,11 +38,14 @@ function List ({ items, url }) {
           </div>
         );
       } 
-      else {  
+      else {
+        // ==========
+        // ROOMS
+        // ==========
         return (
-          <div key={item._id}>
-            <p>
-              <Link to={url + item._id}>
+          <div className={classes.room} key={item._id}>
+            <p className={classes['room__text']}>
+              <Link to={url + item._id} className={classes['room__link']}>
                 {item.name}
               </Link>
             </p>
@@ -48,12 +55,18 @@ function List ({ items, url }) {
     })
    } 
    else {
+    // ==========
+    // ITEMS
+    // ==========
      if (url === '/items/update/') {
        return (
          <p>there are no items, create one!</p>
        );
      } 
      else {
+      // ==========
+      // ROOMS
+      // ==========
        return (
          <p>there are no rooms, create one!</p>
        );
@@ -61,7 +74,7 @@ function List ({ items, url }) {
    } 
 
   return (
-    <div className="items">
+    <div className={classes.items}>
       { Items }
     </div>
   );

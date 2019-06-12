@@ -30,19 +30,22 @@ exports.getRoomById = function (req, res, next) {
 exports.createRoom = function (req, res, next) {
   console.log('createRoom called');
   console.log(req.body);
-
+  console.log(!req.body.name);
   // validate inputs
   let roomData = {};
-  if (req.body.name) {
-    roomData.name = req.body.name;
+  if (!req.body.name) {
+    console.log('no room name');
+    return res.status(400).send('Missing room name');
   }
+
+  roomData.name = req.body.name;
   roomData.creator = req.user.id;
   console.log('creating new mongoose id');
   let mongooseId = new mongoose.mongo.ObjectId();
   roomData.code = mongooseId;
   console.log('roomData code', roomData.code);
   roomData.users = [req.user.id];
-
+  console.log('roomData', roomData);
   let newRoom = new Room(roomData);
   newRoom.save(function (err, room) {
     if (err) {
