@@ -89,6 +89,7 @@ exports.createUser = function (req, res, next) {
   let newUser = new User(userData);
 
   console.log('saving user to db');
+  
   newUser.save(function (err, user) {
     if (err) {
       console.log('ERR in saving user');
