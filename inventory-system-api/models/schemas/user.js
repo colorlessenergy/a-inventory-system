@@ -41,7 +41,7 @@ userSchema.pre('save', function (next) {
     return next();
   }
   // hash pw
-  bcrypt.genSalt(config.saltRounds, function (err, salt) {
+  bcrypt.genSalt(Number(config.saltRounds), function (err, salt) {
     if (err) {
       return next(err);
     }
