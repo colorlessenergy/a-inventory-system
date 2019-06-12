@@ -50,6 +50,8 @@ userSchema.pre('save', function (next) {
     console.log('pre user.hash', user.hash);
     bcrypt.hash(user.hash, salt, function (err, hash) {
       if (err) {
+        console.log('bcrypt err');
+        console.log(err);
         return next(err);
       }
       console.log('hashed pw and saved');
