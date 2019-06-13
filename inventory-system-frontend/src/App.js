@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
-import {Route, HashRouter, Link} from 'react-router-dom';
+import {Route, HashRouter} from 'react-router-dom';
+
+import Nav from './Components/Nav/Nav';
+
+import Home from './Components/Home/Home'
 
 import Register from './containers/Register/Register';
 import Login from './containers/Login/Login';
@@ -22,12 +26,9 @@ class App extends Component {
   render () {
     return (
       <HashRouter>
-        <div>
-          <p>hello</p>
-          <Link to="/login">Login</Link>
-          <Link to="/register">register</Link>
-          <Link to="/rooms">rooms</Link>
-          <Link to="/settings">settings</Link>
+        <div>     
+          <Nav />
+          <Route path='/' exact component={Home} />
           <Route path='/login' exact component={Login} />
           <Route path='/rooms/:id' exact component={Items} />
           <Route path='/rooms/update/:id' exact component={UpdateRoom} />
