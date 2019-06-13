@@ -1,0 +1,29 @@
+.nav {
+  display: flex;
+  font-size: 22px;  
+  justify-content: space-between;
+  padding: 27px 10px 0 10px;
+}
+
+.nav__link {
+  color: #021A3F;
+  text-decoration: none;
+  padding: 11.5px 0;
+}
+
+.nav__link--logo {
+  color: #021A3F;
+  text-decoration: none;
+}
+
+.nav__logo {
+  padding: 11.5px 8px;
+  background: #021A3F;
+  color: #fff;
+}
+
+@media screen and (min-width: 961px) {
+  .nav {
+    padding: 27px 50px 0 50px;
+  }
+}
