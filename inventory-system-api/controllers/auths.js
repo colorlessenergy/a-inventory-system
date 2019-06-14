@@ -118,6 +118,7 @@ exports.validateToken = function (req, res, next) {
 
 exports.logOutUser = function (req, res, next) {
   console.log('logOut user ran');
+  console.log(req.user)
   User.findById(req.user.id, function (err, user) {
     if (err) {
       return next(err);
