@@ -46,6 +46,26 @@ class UpdateRoom extends Component {
     
   }
 
+  deleteRoomHandler = (ev) => {
+    ev.preventDefault();
+    console.log('about to send request to delete room');
+    console.log('room id', this.props.match.params.id);
+
+    console.log('sending request to DELETE /rooms/:id');
+    Api().delete('/rooms/' + this.props.match.params.id)
+      .then((res) => {
+        console.log('DELETE /items/:id res');
+        console.log(res);
+        this.props.history.goBack();
+      })
+      .catch((err) => {
+        console.log('DELETE /items/:id err');
+        console.log(err);
+        localStorage.removeItem('token');
+        this.props.history.replace('/');
+      });
+  }
+
   render () {
     let inputsData = [
       {
@@ -54,7 +74,8 @@ class UpdateRoom extends Component {
         labelText: 'name',
         type: 'text'
       }
-    ]
+    ];
+
     return (
       <React.Fragment>
         <p className={classes["link-container"]}>
@@ -67,8 +88,9 @@ class UpdateRoom extends Component {
           inputsData={inputsData}
           onChange={this.inputChangeHandler}
           onSubmit={this.submitHandler}
-          buttonText='Update Room'>
-        </Form>
+          buttonText='Update Room'
+          deleteButtonText='Delete Room'
+          deleteHandler={this.deleteRoomHandler} />
       </React.Fragment>
     )
   }

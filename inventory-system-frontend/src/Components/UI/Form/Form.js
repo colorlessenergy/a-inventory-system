@@ -26,13 +26,23 @@ const Form = (props) => {
     );
   });
   console.log('inputList', inputList);
-  
+  let deleteButton = null;
+  if (props.deleteButtonText) {
+    deleteButton = (
+      <button type="button" className={[classes['form__button'], classes['form__button--delete']].join(' ')} onClick={props.deleteHandler}>{props.deleteButtonText}</button>
+    );
+  }
+  console.log('================================================')
+  console.log('================================================')
+  console.log('================================================')
+  console.log(props);
   return (
     <React.Fragment>
       <form className={classes.form} onSubmit={props.onSubmit}>
         <h1 className={classes.form__title}>{props.formTitle}</h1>
         {inputList}
         <button className={classes.form__button} type="submit">{props.buttonText}</button>
+        {deleteButton}
       </form>
     </React.Fragment>
   );

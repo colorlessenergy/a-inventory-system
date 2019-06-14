@@ -48,3 +48,10 @@
   outline: none;
   padding: 22px 113px;
 }
+
+.form__button--delete {
+  background-color: #FF3030;
+  color: #DCEAFF;
+  display: block;
+  margin: 13px auto 0 auto;
+}

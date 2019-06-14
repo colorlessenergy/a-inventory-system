@@ -50,10 +50,30 @@ class UpdateItem extends Component {
       .then((res) => {
         console.log('PUT /items/:id res');
         console.log(res);
-        this.props.history.push('/rooms');
+        this.props.history.goBack();
       })
       .catch((err) => {
         console.log('PUT /items/:id err');
+        console.log(err);
+        localStorage.removeItem('token');
+        this.props.history.replace('/');
+      });
+  }
+
+  deleteItemHandler = (ev) => {
+    ev.preventDefault();
+    console.log('about to send request to delete item');
+    console.log(this.state);
+
+    console.log('sending request to DELETE /items/:id');
+    Api().delete('/items/' + this.state.id)
+      .then((res) => {
+        console.log('DELETE /items/:id res');
+        console.log(res);
+        this.props.history.goBack();
+      })
+      .catch((err) => {
+        console.log('DELETE /items/:id err');
         console.log(err);
         localStorage.removeItem('token');
         this.props.history.replace('/');
@@ -75,6 +95,7 @@ class UpdateItem extends Component {
         type: 'text'
       }
     ];
+
     return (
       <React.Fragment>
         <p className={classes["link-container"]}>
@@ -86,8 +107,11 @@ class UpdateItem extends Component {
           formTitle='Update Item'
           inputsData={inputsData}
           onChange={this.inputChangeHandler}
+          buttonText='Update Item'
           onSubmit={this.submitHandler}
-          buttonText='Update Item' />
+          deleteButtonText='Delete Item'
+          deleteHandler={this.deleteItemHandler}
+          />
       </React.Fragment>
     )
   }
