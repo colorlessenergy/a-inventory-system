@@ -21,13 +21,20 @@
 }
 
 .room__text {
+  height: 100%;
   margin: 0;
+  width: 100%;
   text-align: center;
 }
 
 .room__link {
+  align-items: center;
   color: white;
+  display: flex;
   font-size: 1.5em;
+  justify-content: center;
+  height: 100%;
   text-decoration: none;
+  width: 100%;
   word-break: break-word;
 }
