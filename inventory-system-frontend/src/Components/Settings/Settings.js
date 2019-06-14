@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 
-import Api from '../services/Api';
+import classes from './Settings.module.css'
+
+import Api from '../../services/Api';
 
 class Settings extends Component {
   componentDidMount() {
@@ -26,17 +28,17 @@ class Settings extends Component {
 
   render () {
     return (
-      <React.Fragment>
+      <section className={classes["contain-links"]}>
         <p>
-          <Link to='/settings/user'>user settings</Link>
+          <Link className={classes["contain-links__link"]} to='/settings/user'>user settings</Link>
         </p>
         <p>
-          <Link to='/settings/rooms'>room settings</Link>
+          <Link className={classes["contain-links__link"]} to='/settings/rooms'>room settings</Link>
         </p>
-        <p onClick={this.logOutHandler}>
+        <p className={classes["contain-links__link"]} onClick={this.logOutHandler}>
           log out
         </p>
-      </React.Fragment>
+      </section>
     );
   }
 }

@@ -15,7 +15,7 @@ import Items from './containers/Items/Items';
 import AddItem from './containers/Items/AddItem';
 import UpdateItem from './containers/Items/UpdateItem/UpdateItem';
 
-import Settings from './Components/Settings';
+import Settings from './Components/Settings/Settings';
 import RoomsSettings from './containers/Settings/RoomsSettings';
 import UserSettings from './containers/Settings/UserSettings';
 

@@ -1,0 +1,17 @@
+.contain-links {
+  margin: 27px 10px 0 10px;
+}
+
+.contain-links__link {
+  color: #021A3F;
+  cursor: pointer;
+  font-size: 22px;
+  margin: 22px 0;
+  text-decoration: none;
+}
+
+@media screen and (min-width: 961px) {
+  .contain-links {
+    margin: 27px 50px 0 50px
+  }
+}
