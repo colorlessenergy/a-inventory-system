@@ -17,6 +17,6 @@ router.route('/')
 router.route('/:id')
   .get(items.getItemById)
   .put(auths.validateToken, items.updateItemById)
-  .delete(items.deleteItemById);
+  .delete(auths.validateToken, items.deleteItemById);
 
 module.exports = router;

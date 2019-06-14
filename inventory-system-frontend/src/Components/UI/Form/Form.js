@@ -11,8 +11,10 @@ import classes from './form.module.css'
     @prop {String} inputsData[i].labelText - label text
     @prop {String} inputsData[i].type - input type
   @prop {Function} onChange - event listener on input to sync form data with container state
-  @prop {Function} onSubmit - event listener on form to send request to API
+  @prop {Function} onSubmit - event listener on form to send PUT request to API
   @prop {String} buttonText - submit button text
+  @prop {Function} deleteHandler - event listener on form to send DELETE request to API
+  @prop {String} deleteButtonText - submit button text
 */
 
 const Form = (props) => {
@@ -26,13 +28,19 @@ const Form = (props) => {
     );
   });
   console.log('inputList', inputList);
-  
+  let deleteButton = null;
+  if (props.deleteButtonText) {
+    deleteButton = (
+      <button type="button" className={[classes['form__button'], classes['form__button--delete']].join(' ')} onClick={props.deleteHandler}>{props.deleteButtonText}</button>
+    );
+  }
   return (
     <React.Fragment>
       <form className={classes.form} onSubmit={props.onSubmit}>
         <h1 className={classes.form__title}>{props.formTitle}</h1>
         {inputList}
         <button className={classes.form__button} type="submit">{props.buttonText}</button>
+        {deleteButton}
       </form>
     </React.Fragment>
   );
