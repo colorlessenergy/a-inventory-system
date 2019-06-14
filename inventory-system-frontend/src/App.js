@@ -42,6 +42,12 @@ class App extends Component {
     });
   }
 
+  logOutHandler = () => {
+    this.setState({
+      isLoggedIn: false
+    });
+  }
+
   render () {
     return (
       <HashRouter>
@@ -60,7 +66,7 @@ class App extends Component {
           <Route path='/items/create/:id' exact component={AddItem} />
           <Route path='/items/update/:id' exact component={UpdateItem} />
 
-          <Route path='/settings' exact component={Settings} />
+          <Route path='/settings' exact render={ (props) => <Settings logOutHandler={this.logOutHandler} {...props} /> } />
           <Route path='/settings/rooms' exact component={RoomsSettings} />
           <Route path='/settings/user' exact component={UserSettings} />
         </div>
