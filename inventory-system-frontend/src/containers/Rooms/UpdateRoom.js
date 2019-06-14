@@ -11,7 +11,13 @@ class UpdateRoom extends Component {
   state = {
     name: '',
   }
-
+  componentDidMount() {
+    if (!localStorage.token) {
+      console.log('no token in GET /rooms/update/:id');
+      this.props.history.replace('/');
+      return;
+    }
+  }
   inputChangeHandler = (ev) => {
     console.log('input onChange called');
     this.setState({
@@ -34,6 +40,8 @@ class UpdateRoom extends Component {
       })
       .catch((err) => {
         console.log(err);
+        localStorage.removeItem('token');
+        this.props.history.replace('/');
       });
     
   }

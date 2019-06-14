@@ -17,6 +17,9 @@ class UpdateItem extends Component {
   componentDidMount() {
     console.log('this props in UpdateItem');
     console.log(this.props);
+    if (!localStorage.token) {
+      this.props.history.replace('/');
+    }
   }
 
   inputChangeHandler = (ev) => {
@@ -52,6 +55,8 @@ class UpdateItem extends Component {
       .catch((err) => {
         console.log('PUT /items/:id err');
         console.log(err);
+        localStorage.removeItem('token');
+        this.props.history.replace('/');
       });
   }
 

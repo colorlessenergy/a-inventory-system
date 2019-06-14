@@ -7,7 +7,11 @@ import RoomsList from '../../Components/UI/List';
 
 class RoomsSettings extends Component {
   componentDidMount () {
-    this.props.getRooms();
+    if (!localStorage.token) {
+      this.props.history.replace('/');
+      return;
+    }
+    this.props.getRooms(this.props.history);
   }
 
   render () {
@@ -26,8 +30,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getRooms: () => {
-      dispatch(initRoomsAction());
+    getRooms: (history) => {
+      dispatch(initRoomsAction(history));
     }
   }
 }

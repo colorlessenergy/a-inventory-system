@@ -19,9 +19,13 @@ class Items extends Component {
     console.log('this.props');
     console.log(this.props);
     console.log('this.props.match.params.id', this.props.match.params.id);
+    if (!localStorage.token) {
+      this.props.history.replace('/');
+      return;
+    }
     roomId = this.props.match.params.id;
     console.log('roomId', roomId);
-    this.props.initItems(roomId);
+    this.props.initItems(roomId, this.props.history);
   }
 
   render () {
@@ -43,9 +47,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    initItems: (roomId) => {
+    initItems: (roomId, history) => {
       console.log('dispaching initItemsAction');
-      dispatch(initItemsAction(roomId));
+      dispatch(initItemsAction(roomId, history));
     }
   };
 };

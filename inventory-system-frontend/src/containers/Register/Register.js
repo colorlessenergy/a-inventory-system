@@ -25,6 +25,7 @@ class Register extends Component {
       .then(res => {
         console.log('axios submit res');
         console.log(res);
+        this.props.history.push('/login');
       })
       .catch(err => {
         console.log('axios submit err');

@@ -26,6 +26,8 @@ class Login extends Component {
         localStorage.setItem('token', res.data.token);
         console.log('localStorage token', localStorage.getItem('token'));
         console.log(this.props);
+        this.props.loginHandler();
+        this.props.history.push('/rooms');
       })
       .catch(err => {
         console.log('axios login error receieved', err);

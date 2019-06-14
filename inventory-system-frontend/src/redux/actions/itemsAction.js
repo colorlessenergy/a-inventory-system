@@ -10,7 +10,7 @@ export const addItemAction = (item) => {
   }
 }
 
-export const initItemsAction = (roomId) => {
+export const initItemsAction = (roomId, history) => {
   return (dispatch, getState) => {
     console.log('in initItemsAction');
     console.log('roomId', roomId);
@@ -27,8 +27,10 @@ export const initItemsAction = (roomId) => {
         dispatch({ type: 'INIT_ITEMS', items: res.data });
       })
       .catch((err) => {
-        console.log('GET /rooms/items err')
+        console.log('GET /rooms/items err');
         console.log(err);
+        localStorage.removeItem('token');
+        history.replace('/');
       })
   };
 };
