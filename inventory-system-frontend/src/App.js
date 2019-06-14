@@ -23,19 +23,43 @@ import UpdateRoom from './containers/Rooms/UpdateRoom';
 
 
 class App extends Component {
+  state = {
+    isLoggedIn: false
+  }
+
+  componentWillMount () {
+    console.log('checking if theres a token when we enter the page');
+    if (localStorage.token) {
+      this.setState({
+        isLoggedIn: true
+      });
+    }
+  }
+  
+  loginHandler = () => {
+    this.setState({
+      isLoggedIn: true
+    });
+  }
+
   render () {
     return (
       <HashRouter>
-        <div>     
-          <Nav />
+        <div>
+          <Nav isLoggedIn={this.state.isLoggedIn} />
           <Route path='/' exact component={Home} />
-          <Route path='/login' exact component={Login} />
-          <Route path='/rooms/:id' exact component={Items} />
-          <Route path='/rooms/update/:id' exact component={UpdateRoom} />
-          <Route path='/items/create/:id' exact component={AddItem} />
-          <Route path='/rooms' exact component={Rooms} />
+          
           <Route path='/register' exact component={Register} />
+          <Route path='/login' exact render={(props) => <Login loginHandler={this.loginHandler} {...props} />} />
+          
+          <Route path='/rooms' exact component={Rooms} />
+          <Route path='/rooms/update/:id' exact component={UpdateRoom} />
+          <Route path='/rooms/:id' exact component={Items} />
+          
+          
+          <Route path='/items/create/:id' exact component={AddItem} />
           <Route path='/items/update/:id' exact component={UpdateItem} />
+
           <Route path='/settings' exact component={Settings} />
           <Route path='/settings/rooms' exact component={RoomsSettings} />
           <Route path='/settings/user' exact component={UserSettings} />

@@ -13,7 +13,14 @@ class UserSettings extends Component {
     email: '',
     hash: ''
   }
-
+  
+  componentDidMount() {
+    if (!localStorage.token) {
+      this.props.history.replace('/');
+      return;
+    }
+  }
+  
   inputChangeHandler = (ev) => {
     console.log('input onChange called');
     this.setState({
@@ -44,6 +51,8 @@ class UserSettings extends Component {
       })
       .catch((err) => {
         console.error(err);
+        localStorage.removeItem('token');
+        this.props.history.replace('/');
       })
     
   }

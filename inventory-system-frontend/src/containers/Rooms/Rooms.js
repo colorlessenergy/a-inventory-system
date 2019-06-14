@@ -8,7 +8,12 @@ import { initRoomsAction } from '../../redux/actions/roomsAction';
 class Rooms extends Component {
   componentDidMount() {
     console.log('rooms mounted ', this.props.rooms);
-    this.props.getRooms();
+    console.log(this.props);
+    if (!localStorage.token) {
+      this.props.history.replace('/');
+      return;
+    }
+    this.props.getRooms(this.props.history);
   }
 
   render () {
@@ -29,8 +34,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getRooms: () => {
-      dispatch(initRoomsAction());
+    getRooms: (history) => {
+      dispatch(initRoomsAction(history));
     }
   };
 };

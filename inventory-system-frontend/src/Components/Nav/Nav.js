@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 
 import classes from './nav.module.css'
 
-const Nav = () => { 
+const Nav = (props) => { 
   let nav = null;
 
-  if (localStorage.token) {
+  if (props.isLoggedIn) {
     nav = (
       <div className={classes.nav}>
         <Link className={classes.nav__link} to="/rooms">rooms</Link>
