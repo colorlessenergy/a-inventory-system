@@ -36,7 +36,7 @@ export const initItemsAction = (roomId, history) => {
 };
 
 
-export const deleteItemAction = (itemId) => {
+export const deleteItemAction = (itemId, history) => {
   return (dispatch, getState) => {
     console.log('ITEMID', itemId)
     Api().delete('/items/' + itemId)
@@ -47,7 +47,7 @@ export const deleteItemAction = (itemId) => {
         console.log('DELETE /rooms/:id err');
         console.log(err);
         localStorage.removeItem('token');
-        // history.replace('/');
+        history.replace('/');
       });
 
   }

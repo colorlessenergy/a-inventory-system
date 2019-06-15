@@ -29,7 +29,7 @@ class Items extends Component {
   }
 
   deleteItemHandler = (itemId) => {
-    this.props.deleteItem(itemId);
+    this.props.deleteItem(itemId, this.props.history);
   }
 
   render () {
@@ -65,8 +65,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(initItemsAction(roomId, history));
     },
     
-    deleteItem: (itemId) => {
-      dispatch(deleteItemAction(itemId));
+    deleteItem: (itemId, history) => {
+      dispatch(deleteItemAction(itemId, history));
     }
   };
 };
