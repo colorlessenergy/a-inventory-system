@@ -7,7 +7,7 @@ import Api from '../../services/Api';
 
 class AddRoom extends Component {
   state = {
-    name: null
+    name: ''
   }
 
   createRoom = (ev) => {
@@ -17,6 +17,10 @@ class AddRoom extends Component {
       .then((res) => {
         console.log(res.data);
         this.props.createRoom(res.data);
+
+        this.setState({
+          name: ''
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -39,7 +43,8 @@ class AddRoom extends Component {
               type="text"
               name="roomName"
               className={classes['form__input--inline']}
-              onChange={this.inputChangeHandler} />
+              onChange={this.inputChangeHandler}
+              value={this.state.name} />
           </label>
           <button className={classes['form__button--inline']}>add</button>
         </div>

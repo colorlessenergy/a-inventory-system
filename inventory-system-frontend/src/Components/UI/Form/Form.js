@@ -15,6 +15,7 @@ import classes from './form.module.css'
   @prop {String} buttonText - submit button text
   @prop {Function} deleteHandler - event listener on form to send DELETE request to API
   @prop {String} deleteButtonText - submit button text
+  @prop {String} ...this.state - the container state passed down to make inputs reactive (ie control the input value)
 */
 
 const Form = (props) => {
@@ -23,7 +24,7 @@ const Form = (props) => {
     return (
       <div className={classes.form__group} key={input.key}>
         <label className={classes.form__label} htmlFor={input.for}>{input.labelText}</label>
-        <input className={classes.form__input} id={input.for} type={input.type} onChange={props.onChange} />
+        <input className={classes.form__input} id={input.for} type={input.type} onChange={props.onChange} value={props[input.for]} />
       </div>
     );
   });

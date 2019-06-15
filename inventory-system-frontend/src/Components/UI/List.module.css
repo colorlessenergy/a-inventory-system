@@ -1,11 +1,47 @@
 .items {
+  margin: 0 33px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 30px;
+}
+
+.item__name,
+.item__amount {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.item__link,
+.item__amount {
+  color: #021A3F;
+}
+
+.item__link {
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.item__link:hover {
+  text-decoration: underline;
+}
+
+.text {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.rooms {
   display: flex;
   flex-wrap: wrap;
   margin-top: 40px;
 }
 
 .room {
-
   background-color: #021A3F;
   
   display: flex;
@@ -13,8 +49,6 @@
   justify-content: center;
   
   margin: 10px;
-  padding: 5px;
-
   width: 200px;
   height: 200px;
   overflow: auto;
@@ -37,4 +71,11 @@
   text-decoration: none;
   width: 100%;
   word-break: break-word;
+}
+
+@media only screen and (min-width: 600px) {
+  .items {
+    width: 50%;
+    margin: 0 auto;
+  }
 }
