@@ -6,7 +6,7 @@ export default () => {
     // DEV
     // baseURL: 'http://localhost:3001',
     // Production
-    baseURL: 'https://inventory-systems.herokuapp.com',
+    baseURL: 'https://theack.herokuapp.com',
 
     headers: {
       Authorization: localStorage.getItem('token')
