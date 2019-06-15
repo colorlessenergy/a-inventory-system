@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { initItemsAction } from '../../redux/actions/itemsAction';
+import { initItemsAction, deleteItemAction } from '../../redux/actions/itemsAction';
 import { connect } from 'react-redux';
 
 import ItemsList from '../../Components/UI/List';
@@ -28,6 +28,10 @@ class Items extends Component {
     this.props.initItems(roomId, this.props.history);
   }
 
+  deleteItemHandler = (itemId) => {
+    this.props.deleteItem(itemId, this.props.history);
+  }
+
   render () {
     console.log('items from this.props.items from redux', this.props.items.items);
     console.log('roomName from this.props.items from redux', this.props.items.roomName);
@@ -42,7 +46,7 @@ class Items extends Component {
         <div className={classes['box']}>
           <Link to={'/items/create/' + this.props.match.params.id} className={classes['link']}>create new item</Link>
         </div>
-        <ItemsList url='/items/update/' items={items} />
+        <ItemsList url='/items/update/' items={items} deleteItemHandler={this.deleteItemHandler} />
       </React.Fragment>
     );
   }
@@ -59,6 +63,10 @@ const mapDispatchToProps = (dispatch) => {
     initItems: (roomId, history) => {
       console.log('dispaching initItemsAction');
       dispatch(initItemsAction(roomId, history));
+    },
+    
+    deleteItem: (itemId, history) => {
+      dispatch(deleteItemAction(itemId, history));
     }
   };
 };

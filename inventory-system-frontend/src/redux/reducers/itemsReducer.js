@@ -13,6 +13,21 @@ const itemsReducer = (state=initState, action) => {
           items: [...state.items.items, action.item]
         }
       }
+    
+    case 'DELETE_ITEM':
+      console.log('DELETE_ITEM', action);
+
+      let newItems = state.items.items.filter((item) => {
+        return item._id !== action.itemId;
+      });
+
+      return {
+        ...state,
+        items: {
+          ...state.items,
+          items: newItems
+        }
+      }
 
     case 'INIT_ITEMS':
       console.log('INIT_ITEMS', action);

@@ -34,3 +34,21 @@ export const initItemsAction = (roomId, history) => {
       })
   };
 };
+
+
+export const deleteItemAction = (itemId, history) => {
+  return (dispatch, getState) => {
+    console.log('ITEMID', itemId)
+    Api().delete('/items/' + itemId)
+      .then(() => {
+        dispatch({ type: 'DELETE_ITEM', itemId: itemId })
+      })
+      .catch((err) => {
+        console.log('DELETE /rooms/:id err');
+        console.log(err);
+        localStorage.removeItem('token');
+        history.replace('/');
+      });
+
+  }
+}
