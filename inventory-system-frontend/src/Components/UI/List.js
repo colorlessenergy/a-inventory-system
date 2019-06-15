@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import classes from './List.module.css';
 
+import editIcon from '../../assets/edit-icon.svg';
+import deleteIcon from '../../assets/delete-icon.svg';
+
 /**
   takes in an array of data that is used to create
   JSX to display to the user
@@ -14,7 +17,7 @@ import classes from './List.module.css';
     @param {String} url - a path to the item
  */
 
-function List ({ items, url }) {
+function List ({ items, url, deleteItemHandler }) {
   console.log(items, 'items that were passed in by props');
   let containerClass = null;
   if (url === '/items/update/') {
@@ -37,9 +40,16 @@ function List ({ items, url }) {
                 {item.name}
               </Link>
             </p>
-            <p className={classes['item__amount']}>
-              { item.amount }
-            </p>
+
+            <div className={classes.item__actions}>
+              <img className={classes.item__icon} src={deleteIcon} onClick={() => { deleteItemHandler(item._id) }} alt='a trash can as a delete icon'/>
+              <Link className={classes['item__link-icon']} to={url + item._id}>
+                <img className={classes.item__icon} src={editIcon} alt='edit item icon' />
+              </Link>
+              <p className={classes['item__amount']}>
+                { item.amount }
+              </p>
+            </div>
           </div>
         );
       } 

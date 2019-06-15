@@ -30,6 +30,20 @@
   text-decoration: underline;
 }
 
+.item__actions {
+  display: flex;
+  align-items: center;
+}
+
+.item__link-icon {
+  height: 24px;
+}
+
+.item__icon {
+  cursor: pointer;
+  margin-right: 30px;
+}
+
 .text {
   margin-top: 30px;
   text-align: center;
