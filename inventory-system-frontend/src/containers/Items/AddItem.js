@@ -35,9 +35,6 @@ class AddItem extends Component {
           amount: ''
         });
 
-        document.querySelector('form').name.value = '';
-        document.querySelector('form').amount.value = '';
-
         this.props.history.push('/rooms/' + this.props.match.params.id);
       })
       .catch(err => console.log(err));
@@ -62,7 +59,8 @@ class AddItem extends Component {
           formTitle='create a item'
           buttonText='create'
           onChange={this.inputChangeHandler}
-          onSubmit={this.submitHandler} />
+          onSubmit={this.submitHandler}
+          {...this.state} />
       </React.Fragment>
     )
   }

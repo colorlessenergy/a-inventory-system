@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import ItemsList from '../../Components/UI/List';
 import { Link } from 'react-router-dom';
-
+import classes from './Items.module.css';
 
 
 /**
@@ -29,11 +29,20 @@ class Items extends Component {
   }
 
   render () {
-    console.log('items from this.props.items from redux', this.props.items);
+    console.log('items from this.props.items from redux', this.props.items.items);
+    console.log('roomName from this.props.items from redux', this.props.items.roomName);
+    let items = '';
+    if (this.props.items.items) {
+      items = this.props.items.items;
+    }
+    console.log('items variable', items);
     return (
       <React.Fragment>
-        <Link to={'/items/create/' + this.props.match.params.id}>create new item</Link> 
-        <ItemsList url='/items/update/' items={this.props.items} />
+        <h1 className={classes['title']}>{this.props.items.roomName}</h1>
+        <div className={classes['box']}>
+          <Link to={'/items/create/' + this.props.match.params.id} className={classes['link']}>create new item</Link>
+        </div>
+        <ItemsList url='/items/update/' items={items} />
       </React.Fragment>
     );
   }

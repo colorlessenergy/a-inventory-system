@@ -98,7 +98,13 @@ exports.getItemsFromRoom = function (req, res, next) {
         return res.status(404).send('No room with that ID');
       }
       console.log('populated room items', room);
-      return res.json(room.items);
+      let responseData = {
+        roomName: room.name,
+        items: room.items
+      }
+      console.log('updated res object to return that contains the items and room name');
+      console.log(responseData);
+      return res.json(responseData);
     });
 };
 
