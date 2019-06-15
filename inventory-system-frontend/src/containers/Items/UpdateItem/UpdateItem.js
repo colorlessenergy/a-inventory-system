@@ -99,7 +99,9 @@ class UpdateItem extends Component {
     return (
       <React.Fragment>
         <p className={classes["link-container"]}>
-          <Link to={'/rooms/' + this.props.match.params.id}>
+          <Link onClick={() => {
+            this.props.history.goBack();
+          }}>
             go back to items
           </Link>
         </p>
