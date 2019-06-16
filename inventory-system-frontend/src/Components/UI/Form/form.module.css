@@ -28,6 +28,11 @@
   margin-bottom: 23px;
 }
 
+.form__label--error {
+  color: #ff0000;
+}
+
+
 .form__input {
   border: none;
   border-bottom: 1px solid #021A3F;
@@ -35,6 +40,11 @@
   line-height: 27px;
   outline: none;
   width: 100%;
+}
+
+.form__input--error {
+  border-bottom: 1px solid #ff0000;
+  color: #ff0000;
 }
 
 .form__button {

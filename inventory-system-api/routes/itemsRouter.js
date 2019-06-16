@@ -11,11 +11,11 @@ router.param('id', function (req, res, next, id) {
 });
 
 router.route('/')
-  .get(items.getItems)
+  // .get(items.getItems)
   .post(auths.validateToken, items.createItem);
 
 router.route('/:id')
-  .get(items.getItemById)
+  // .get(items.getItemById)
   .put(auths.validateToken, items.updateItemById)
   .delete(auths.validateToken, items.deleteItemById);
 

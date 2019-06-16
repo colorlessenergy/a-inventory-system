@@ -11,7 +11,7 @@ router.param('id', function (req, res, next, id) {
 });
 
 router.route('/')
-  .get(rooms.getRooms)
+  // .get(rooms.getRooms)
   .post(auths.validateToken, rooms.createRoom)
 
 router.get('/items', auths.validateToken, rooms.getItemsFromRoom);
@@ -19,7 +19,7 @@ router.put('/join', auths.validateToken, rooms.joinRoomByCode);
 
 router.route('/:id')
   .get(auths.validateToken, rooms.getRoomById)
-  .put(rooms.updateRoomById)
-  .delete(rooms.deleteRoomById)
+  .put(auths.validateToken, rooms.updateRoomById)
+  .delete(auths.validateToken, rooms.deleteRoomById);
 
 module.exports = router;

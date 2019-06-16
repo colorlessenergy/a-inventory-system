@@ -2,31 +2,6 @@ const User = require('../models/schemas/user');
 const config = require('../models/config/config');
 const bcrypt = require('bcrypt');
 
-exports.getUsers = function (req, res, next) {
-  console.log('get users called');
-  User.find({}, function (err, users) {
-    if (err) {
-      return next(err);
-    }
-
-    return res.json(users);
-  })
-};
-
-exports.getUserById = function (req, res, next) {
-  console.log('get user by id called');
-  User.findById(req.params.id, function (err, user) {
-    if (err) {
-      return next(err);
-    }
-    if (!user) {
-      return res.status(404).send('No user with that ID');
-    }
-
-    return res.json(user);
-  });
-}
-
 /**
   Create a user and save it to the db
   @param {String} req.body.username - username
@@ -34,10 +9,9 @@ exports.getUserById = function (req, res, next) {
   @param {String} req.body.password - user password
   @return {Object} - 200 status
 */
-
 exports.createUser = function (req, res, next) {
   console.log('createUser called');
-  // validate inputs
+  // **validate inputs
   console.log(req.body.username, typeof req.body.username);
   console.log(req.body.email, typeof req.body.email);
   console.log(req.body.password, typeof req.body.password);
@@ -75,7 +49,7 @@ exports.createUser = function (req, res, next) {
     return res.status(400).send('Invalid user email');
   }
 
-  // adding data to an object to create a user
+  // **adding user data to an object to create a user
   let userData = {};
   userData.username = req.body.username;
   userData.email = req.body.email;
@@ -85,11 +59,9 @@ exports.createUser = function (req, res, next) {
   if (req.body.hash) {
     userData.hash = req.body.hash;
   }
-
   let newUser = new User(userData);
 
   console.log('saving user to db');
-  
   newUser.save(function (err, user) {
     if (err) {
       console.log('ERR in saving user');
@@ -105,6 +77,11 @@ exports.createUser = function (req, res, next) {
   });
 }
 
+/**
+  Get a user's rooms
+  @param {String} req.user.id - user id from token
+  @return {Array} - user's rooms
+*/
 exports.getUserRooms = function (req, res, next) {
   console.log('getUserRooms called');
   User.findById(req.user.id)
@@ -119,9 +96,14 @@ exports.getUserRooms = function (req, res, next) {
     });
 }
 
+/**
+  Create a user and save it to the db
+  @param {String} req.user.id - user id from token
+  @return {Object} - response
+*/
 exports.updateUserById = function (req, res, next) {
   console.log('update user by id called');
-  // validate inputs
+  // **validate inputs
   let userData = {};
   if (req.body.email) {
     userData.email = req.body.email;
@@ -139,8 +121,10 @@ exports.updateUserById = function (req, res, next) {
     userData.hash = req.body.hash;
   }
 
-  // hash pw IFF theres a pw before updating since findByIdAndUpdate bypasses the mongoose pre 'save' hook
+  // **hash pw IFF theres a pw before updating since findByIdAndUpdate bypasses the mongoose pre 'save' hook
   if (userData.hash) {
+    // **update user with a new pw
+    console.log('updating user with new pw');
     bcrypt.genSalt(config.saltRounds, function (err, salt) {
       if (err) {
         return next(err);
@@ -168,17 +152,63 @@ exports.updateUserById = function (req, res, next) {
       });
     })
   }
+  else {
+    // **update user without a new pw
+    console.log('updating user no new pw');
+
+    User.findByIdAndUpdate(req.user.id, userData, { new: true, upsert: true }, function (err, user) {
+      if (err) {
+        if (err.code === 11000) {
+          return res.status(400).send('User email or username already registered');
+        }
+        return next(err);
+      }
+      if (!user) {
+        return res.status(404).send('No user with that ID');
+      }
+      return res.sendStatus(200);
+    });
+  }
 }
 
-exports.deleteUserById = function (req, res, next) {
-  console.log('delete user by id called');
-  User.findByIdAndDelete(req.params.id, function (err, user) {
-    if (err) {
-      return next(err);
-    }
-    if (!user) {
-      return res.status(404).send('No user with that ID');
-    }
-    return res.sendStatus(200);
-  });
-}
+// ======================
+// DEV controllers
+// ======================
+
+// exports.getUsers = function (req, res, next) {
+//   console.log('get users called');
+//   User.find({}, function (err, users) {
+//     if (err) {
+//       return next(err);
+//     }
+
+//     return res.json(users);
+//   })
+// };
+
+// exports.getUserById = function (req, res, next) {
+//   console.log('get user by id called');
+//   User.findById(req.params.id, function (err, user) {
+//     if (err) {
+//       return next(err);
+//     }
+//     if (!user) {
+//       return res.status(404).send('No user with that ID');
+//     }
+
+//     return res.json(user);
+//   });
+// }
+
+// exports.deleteUserById = function (req, res, next) {
+//   console.log('delete user by id called');
+//   User.findByIdAndDelete(req.params.id, function (err, user) {
+//     if (err) {
+//       return next(err);
+//     }
+//     if (!user) {
+//       return res.status(404).send('No user with that ID');
+//     }
+//     return res.sendStatus(200);
+//   });
+// }

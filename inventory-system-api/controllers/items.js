@@ -1,43 +1,17 @@
 const Item = require('../models/schemas/item');
 const Room = require('../models/schemas/room');
 
-exports.getItems = function (req, res, next) {
-  console.log('get items called');
-  Item.find({}, function (err, items) {
-    if (err) {
-      return next(err);
-    }
-
-    return res.json(items)
-  });
-};
-
-exports.getItemById = function (req, res, next) {
-  console.log('get item by id called');
-  Item.findById(req.params.id, function (err, item) {
-    if (err) {
-      return next(err);
-    }
-    if (!item) {
-      return res.status(404).send('No item with that ID');
-    }
-
-    return res.json(item);
-  });
-}
-
 /**
   Create an item and save it to the db
-  look for its room and save that item id to that room
+  find its room and save that item id to that room
   @param {String} req.body.name - item name
   @param {String} req.body.amount - item amount
   @param {String} req.body.id - room id
   @return {Object} - created item
 */
-
 exports.createItem = function (req, res, next) {
   console.log('create item called');
-  // validate inputs
+  // **validate inputs
   if (typeof req.body.name !== 'string') {
     return res.status(400).send('Invalid item name');
   }
@@ -58,7 +32,8 @@ exports.createItem = function (req, res, next) {
     console.log('passed item amount number check', itemData.amount);
     itemData.amount = req.body.amount;
   }
-  // create and save new item
+
+  // **create and save new item
   let newItem = new Item(itemData);
   newItem.save(function (err, item) {
     if (err) {
@@ -66,7 +41,8 @@ exports.createItem = function (req, res, next) {
     }
     console.log('item saved', item);
     console.log('finding room');
-    // look for room to add new item to its items
+    
+    // **find room to add new item to it's items
     Room.findById(req.body.id, function (err, room) {
       if (err) {
         return next(err);
@@ -77,7 +53,8 @@ exports.createItem = function (req, res, next) {
       console.log('found room', room);
       room.items.push(item.id);
       console.log('added item to room', room);
-      // save room and return item
+      
+      // **save room and return item
       room.save(function (err, room) {
         if (err) {
           return next(err);
@@ -96,10 +73,10 @@ exports.createItem = function (req, res, next) {
   @param {String} req.params.id - item id
   @return {Object} - updated item
 */
-
 exports.updateItemById = function (req, res, next) {
   console.log('updateItemById called');
-  // validate inputs
+
+  // **validate inputs
   let itemData = {};
   if (req.body.name) {
     if (typeof req.body.name === 'string') {
@@ -108,7 +85,6 @@ exports.updateItemById = function (req, res, next) {
       return res.status(400).send('Invalid item name');
     }
   }
-
   if (req.body.amount) {
     if (typeof req.body.amount === 'string') {
       console.log('have an item amount', req.body.amount);
@@ -126,7 +102,7 @@ exports.updateItemById = function (req, res, next) {
     }
   }
 
-  // look for item and update it with itemData
+  // **find item and update it with itemData
   Item.findByIdAndUpdate(req.params.id, itemData, { new: true, upsert: true }, function (err, item) {
     if (err) {
       return next(err);
@@ -138,6 +114,11 @@ exports.updateItemById = function (req, res, next) {
   });
 };
 
+/**
+  Delete an item from db
+  @param {String} req.params.id - item id
+  @return {Object} - response
+*/
 exports.deleteItemById = function (req, res, next) {
   console.log('delete item by id called');
   Item.findByIdAndDelete(req.params.id, function (err, item) {
@@ -147,7 +128,37 @@ exports.deleteItemById = function (req, res, next) {
     if (!item) {
       return res.status(404).send('No item with that ID');
     }
-    
+
     return res.sendStatus(200);
   });
 };
+
+
+// ======================
+// DEV controllers
+// ======================
+
+// exports.getItems = function (req, res, next) {
+//   console.log('get items called');
+//   Item.find({}, function (err, items) {
+//     if (err) {
+//       return next(err);
+//     }
+
+//     return res.json(items)
+//   });
+// };
+
+// exports.getItemById = function (req, res, next) {
+//   console.log('get item by id called');
+//   Item.findById(req.params.id, function (err, item) {
+//     if (err) {
+//       return next(err);
+//     }
+//     if (!item) {
+//       return res.status(404).send('No item with that ID');
+//     }
+
+//     return res.json(item);
+//   });
+// }

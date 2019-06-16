@@ -11,7 +11,9 @@ class UserSettings extends Component {
   state = {
     username: '',
     email: '',
-    hash: ''
+    hash: '',
+    errorMessage: '',
+    inputsClicked: []
   }
   
   componentDidMount() {
@@ -28,31 +30,66 @@ class UserSettings extends Component {
     });
   }
 
+  inputClickHandler = (ev) => {
+    console.log('input clicked');
+    console.log(ev.target.id);
+    this.setState({
+      inputsClicked: [...this.state.inputsClicked, ev.target.id]
+    });
+  }
+
+  errorHandler = (errorMessage) => {
+    this.setState({
+      errorMessage: errorMessage
+    });
+  }
+
   submitHandler = (ev) => {
     ev.preventDefault();
+    
+    // **reset the inputsClicked array since its a new submit
+    if (this.state.inputsClicked) {
+      this.setState({
+        inputsClicked: ''
+      });
+    }
 
-    let roomData = {};
+    // **add filled out form inputs to object for user info update
+    let userData = {};
     if (this.state.username !== '') {
-      roomData.username = this.state.username;
+      userData.username = this.state.username;
     }
 
     if (this.state.email !== '') {
-      roomData.email = this.state.email;
+      userData.email = this.state.email;
     }
 
     if (this.state.hash !== '') {
-      roomData.hash = this.state.hash;
+      userData.hash = this.state.hash;
     }
-    
-    Api().put('/users', roomData)
+
+    // **check if user filled out inputs and redirect if none are
+    console.log(userData);
+    console.log(Object.keys(userData).length);
+    if (Object.keys(userData).length === 0) {
+      console.log('no inputs filled out return to user settings');
+      this.props.history.push('/settings');
+      return;
+    }
+
+    // **sending request
+    Api().put('/users', userData)
       .then((res) => {
+        console.log('PUT /users res');
         console.log(res);
+
         this.props.history.push('/settings');
       })
       .catch((err) => {
-        console.error(err);
-        localStorage.removeItem('token');
-        this.props.history.replace('/');
+        console.log('PUT /users err');
+        console.error(err.response);
+        
+        this.errorHandler(err.response.data);
       })
     
   }
@@ -91,7 +128,10 @@ class UserSettings extends Component {
           inputsData={inputsData}
           onChange={this.inputChangeHandler}
           onSubmit={this.submitHandler}
-          buttonText='Update User Settings'></Form>
+          buttonText='Update User Settings'
+          errorMessage={this.state.errorMessage}
+          inputsClicked={this.state.inputsClicked}
+          onClick={this.inputClickHandler} />
       </React.Fragment>
     )
   }

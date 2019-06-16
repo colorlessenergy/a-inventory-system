@@ -12,7 +12,9 @@ class AddItem extends Component {
   state = {
     name: '',
     amount: '',
-    id: this.props.match.params.id
+    id: this.props.match.params.id,
+    errorMessage: '',
+    inputsClicked: []
   }
 
   inputChangeHandler = (ev) => {
@@ -21,9 +23,51 @@ class AddItem extends Component {
     });
   }
   
+  inputClickHandler = (ev) => {
+    console.log('input clicked');
+    console.log(ev.target.id);
+    this.setState({
+      inputsClicked: [...this.state.inputsClicked, ev.target.id]
+    });
+  }
+
+  errorHandler = (errorMessage) => {
+    this.setState({
+      errorMessage: errorMessage
+    });
+  }
+
   submitHandler = (ev) => {
     ev.preventDefault();
+    
+    // **reset the inputsClicked array since its a new submit
+    if (this.state.inputsClicked) {
+      this.setState({
+        inputsClicked: ''
+      });
+    }
 
+    console.log('submitted', this.state);
+    // **form validation
+    let errorMessage = null;
+    if (this.state.name === '') {
+      errorMessage = 'Missing item name';
+    }
+    if (this.state.amount === '') {
+      if (errorMessage) {
+        errorMessage += ', and amount';
+      }
+      else {
+        errorMessage = 'Missing item amount';
+      }
+    }
+    if (errorMessage) {
+      console.log('errorMessage', errorMessage);
+      this.errorHandler(errorMessage);
+      return;
+    }
+
+    // **sending request, form validation passed    
     Api().post('/items', this.state)
       .then((res) => {
         console.log('POST /items res');
@@ -37,15 +81,30 @@ class AddItem extends Component {
 
         this.props.history.push('/rooms/' + this.props.match.params.id);
       })
-      .catch(err => console.log(err));
-    console.log('creating a item', this.state);
+      .catch(err => {
+        console.log('POST /items err');
+        console.log(err.response);
+        console.log(err.response.data);
+
+        this.errorHandler(err.response.data);
+      });
   }
 
   render() {
     let inputsData = [
-      { key: '0', for: 'name', labelText: 'name', type: 'text' },
-      { key: '1', for: 'amount', labelText: 'amount', type: 'text' }
-    ]
+      { 
+        key: '0',
+        for: 'name',
+        labelText: 'name',
+        type: 'text'
+      },
+      {
+        key: '1',
+        for: 'amount',
+        labelText: 'amount',
+        type: 'text'
+      }
+    ];
 
     return (
       <React.Fragment>
@@ -60,6 +119,9 @@ class AddItem extends Component {
           buttonText='create'
           onChange={this.inputChangeHandler}
           onSubmit={this.submitHandler}
+          onClick={this.inputClickHandler}
+          errorMessage={this.state.errorMessage}
+          inputsClicked={this.state.inputsClicked}
           {...this.state} />
       </React.Fragment>
     )
