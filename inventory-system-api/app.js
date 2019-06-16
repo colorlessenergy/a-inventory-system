@@ -4,9 +4,15 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
+const helmet = require('helmet');
 var app = express();
 
 const auths = require('./controllers/auths');
+
+// sets many HTTP headers
+// for more details visit this site: https://helmetjs.github.io/docs/
+
+app.use(helmet());
 
 app.use(express.static(path.join(__dirname, '../inventory-system-frontend/build')));
 
@@ -26,6 +32,7 @@ mongoose.connect(config.dbUrl, { useNewUrlParser: true }, function (err) {
   }
   console.log('connected to mongodb');
 });
+
 
 app.use(cors());
 
