@@ -29,7 +29,7 @@ function List ({ items, url, deleteItemHandler }) {
   let Items;
   if (items.length !== 0) {
     Items = items.map((item) => {
-      if (item.amount) {
+      if (item.hasOwnProperty('amount')) {
         // ==========
         // ITEMS
         // ==========
