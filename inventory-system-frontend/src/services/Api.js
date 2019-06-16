@@ -4,9 +4,9 @@ export default () => {
 
   return axios.create({
     // DEV
-    baseURL: 'http://localhost:3001',
+    // baseURL: 'http://localhost:3001',
     // Production
-    // baseURL: 'https://theack.herokuapp.com',
+    baseURL: 'https://theack.herokuapp.com',
 
     headers: {
       Authorization: localStorage.getItem('token')
