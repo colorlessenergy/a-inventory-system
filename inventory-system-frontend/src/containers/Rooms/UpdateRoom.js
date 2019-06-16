@@ -6,11 +6,13 @@ import Api from '../../services/Api';
 
 import classes from '../Items/AddItem.module.css';
 
-
 class UpdateRoom extends Component {
   state = {
     name: '',
+    errorMessage: '',
+    inputsClicked: []
   }
+
   componentDidMount() {
     if (!localStorage.token) {
       console.log('no token in GET /rooms/update/:id');
@@ -18,6 +20,7 @@ class UpdateRoom extends Component {
       return;
     }
   }
+
   inputChangeHandler = (ev) => {
     console.log('input onChange called');
     this.setState({
@@ -25,23 +28,51 @@ class UpdateRoom extends Component {
     });
   }
 
+  inputClickHandler = (ev) => {
+    console.log('input clicked');
+    console.log(ev.target.id);
+    this.setState({
+      inputsClicked: [...this.state.inputsClicked, ev.target.id]
+    });
+  }
+
+  errorHandler = (errorMessage) => {
+    this.setState({
+      errorMessage: errorMessage
+    });
+  }
+
   submitHandler = (ev) => {
     ev.preventDefault();
-    
+
+    // **add filled out form inputs to object for item update
     let roomData = {};
     if (this.state.name !== '') {
       roomData.name = this.state.name;
     }
-    
+
+    // **check if user filled out inputs and redirect if none are
+    console.log(roomData);
+    console.log(Object.keys(roomData).length);
+    if (Object.keys(roomData).length === 0) {
+      console.log('no inputs filled out return to room settings');
+      this.props.history.push('/settings/rooms');
+      return;
+    }
+
+    // **sending request
     Api().put('/rooms/' + this.props.match.params.id, roomData)
       .then((res) => {
-        console.log(res);
+        console.log('PUT /rooms/:id res');
+        console.log(res.data);
+
         this.props.history.push('/settings/rooms');
       })
       .catch((err) => {
-        console.log(err);
-        localStorage.removeItem('token');
-        this.props.history.replace('/');
+        console.log('PUT /rooms/:id err');
+        console.log(err.response);
+
+        this.errorHandler(err.response.data);
       });
     
   }
@@ -51,18 +82,20 @@ class UpdateRoom extends Component {
     console.log('about to send request to delete room');
     console.log('room id', this.props.match.params.id);
 
+    // **sending request
     console.log('sending request to DELETE /rooms/:id');
     Api().delete('/rooms/' + this.props.match.params.id)
       .then((res) => {
         console.log('DELETE /items/:id res');
         console.log(res);
+
         this.props.history.goBack();
       })
       .catch((err) => {
         console.log('DELETE /items/:id err');
-        console.log(err);
-        localStorage.removeItem('token');
-        this.props.history.replace('/');
+        console.log(err.response);
+
+        this.errorHandler(err.response.data);
       });
   }
 
@@ -90,7 +123,11 @@ class UpdateRoom extends Component {
           onSubmit={this.submitHandler}
           buttonText='Update Room'
           deleteButtonText='Delete Room'
-          deleteHandler={this.deleteRoomHandler} />
+          deleteHandler={this.deleteRoomHandler}
+          errorMessage={this.state.errorMessage}
+          inputsClicked={this.state.inputsClicked}
+          onClick={this.inputClickHandler}
+          />
       </React.Fragment>
     )
   }

@@ -15,12 +15,12 @@ router.route('/rooms')
   .get(auths.validateToken, users.getUserRooms);
 
 router.route('/')
-  .get(users.getUsers)
+  // .get(users.getUsers)
   .post(users.createUser)
   .put(auths.validateToken, users.updateUserById);
 
-router.route('/:id')
-  .get(users.getUserById)
-  .delete(users.deleteUserById);
+// router.route('/:id')
+  // .get(users.getUserById)
+  // .delete(users.deleteUserById);
 
 module.exports = router;

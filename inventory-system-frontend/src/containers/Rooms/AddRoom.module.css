@@ -23,12 +23,21 @@
   margin: 0 50px 0 10px;
 }
 
+.form__label--inline-error {
+  color: #ff0000;
+}
+
 .form__input--inline {
   border: none;
   border-bottom: 1px solid #021A3F;
   font-size: 1em;
   outline: none;
   width: 100%;
+}
+
+.form__input--inline-error {
+  border-bottom: 1px solid #ff0000;
+  color: #ff0000;
 }
 
 .form__button--inline {
