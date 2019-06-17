@@ -128,7 +128,7 @@ class UserSettings extends Component {
           inputsData={inputsData}
           onChange={this.inputChangeHandler}
           onSubmit={this.submitHandler}
-          buttonText='Update User Settings'
+          buttonText='Update'
           errorMessage={this.state.errorMessage}
           inputsClicked={this.state.inputsClicked}
           onClick={this.inputClickHandler} />
