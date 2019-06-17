@@ -51,12 +51,20 @@
   background-color: #DCEAFF;
   border: none;
   border-radius: 10px;
+  cursor: pointer;
   font-size: 24px;
   letter-spacing: 1px;
   line-height: 28px;
   margin-top: 39px;
   outline: none;
   padding: 22px 113px;
+  transition: background-color 0.3s ease-out;
+}
+
+.form__button:hover {
+  /* background-color: #a9cbff; -3*/
+  background-color: #98c1ff;
+  /* background-color: #87b7ff; -5*/ 
 }
 
 .form__button--delete {
@@ -64,4 +72,8 @@
   color: #DCEAFF;
   display: block;
   margin: 13px auto 0 auto;
+}
+
+.form__button--delete:hover {
+  background-color: #eb0000;
 }
