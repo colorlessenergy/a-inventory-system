@@ -121,8 +121,8 @@ class UpdateRoom extends Component {
           inputsData={inputsData}
           onChange={this.inputChangeHandler}
           onSubmit={this.submitHandler}
-          buttonText='Update Room'
-          deleteButtonText='Delete Room'
+          buttonText='Update'
+          deleteButtonText='Delete'
           deleteHandler={this.deleteRoomHandler}
           errorMessage={this.state.errorMessage}
           inputsClicked={this.state.inputsClicked}

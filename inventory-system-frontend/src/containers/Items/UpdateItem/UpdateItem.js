@@ -147,9 +147,9 @@ class UpdateItem extends Component {
           formTitle='Update Item'
           inputsData={inputsData}
           onChange={this.inputChangeHandler}
-          buttonText='Update Item'
+          buttonText='Update'
           onSubmit={this.submitHandler}
-          deleteButtonText='Delete Item'
+          deleteButtonText='Delete'
           deleteHandler={this.deleteItemHandler}
           errorMessage={this.state.errorMessage}
           inputsClicked={this.state.inputsClicked}
