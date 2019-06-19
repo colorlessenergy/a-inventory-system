@@ -6,18 +6,22 @@ import RoomsList from '../../Components/UI/List';
 
 
 class RoomsSettings extends Component {
-  componentDidMount () {
+  componentWillMount() {
+    console.log('componentWillMount in RoomsSettings');
+
     if (!localStorage.token) {
+      console.log('no token in RoomsSettings');
       this.props.history.replace('/');
       return;
     }
-    this.props.getRooms(this.props.history);
+
+    console.log('there is a token in RoomsSettings');
   }
 
   render () {
     return (
-      <RoomsList url={'/rooms/update/'} items={this.props.rooms}></RoomsList>
-      )
+        <RoomsList url={'/rooms/update/'} items={this.props.rooms}></RoomsList>
+      );
     }
 }
 

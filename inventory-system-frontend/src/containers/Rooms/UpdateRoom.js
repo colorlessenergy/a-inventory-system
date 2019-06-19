@@ -13,12 +13,16 @@ class UpdateRoom extends Component {
     inputsClicked: []
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    console.log('componentWillMount in UpdateRoom');
+
     if (!localStorage.token) {
-      console.log('no token in GET /rooms/update/:id');
+      console.log('no token in UpdateRoom');
       this.props.history.replace('/');
       return;
     }
+
+    console.log('there is a token in UpdateRoom');
   }
 
   inputChangeHandler = (ev) => {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 
 import Api from '../../../services/Api';
@@ -16,12 +16,16 @@ class UpdateItem extends Component {
     inputsClicked: []
   }
 
-  componentDidMount() {
-    console.log('this props in UpdateItem');
-    console.log(this.props);
+  componentWillMount() {
+    console.log('componentWillMount in UpdateItem');
+
     if (!localStorage.token) {
+      console.log('no token in UpdateItem');
       this.props.history.replace('/');
+      return;
     }
+
+    console.log('there is a token in UpdateItem');
   }
 
   inputChangeHandler = (ev) => {

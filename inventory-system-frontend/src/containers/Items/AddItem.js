@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Form from '../../Components/UI/Form/Form'
-import { connect } from 'react-redux'
+import Form from '../../Components/UI/Form/Form';
+import { connect } from 'react-redux';
 import { addItemAction } from '../../redux/actions/itemsAction';
 import { withRouter, Link } from 'react-router-dom';
 import Api from '../../services/Api';
 
-import classes from './AddItem.module.css'
+import classes from './AddItem.module.css';
 
 class AddItem extends Component {
   // this is the data needed to create a item in our API
@@ -15,6 +15,18 @@ class AddItem extends Component {
     id: this.props.match.params.id,
     errorMessage: '',
     inputsClicked: []
+  }
+
+  componentWillMount() {
+    console.log('componentWillMount in AddItem');
+
+    if (!localStorage.token) {
+      console.log('no token in AddItem');
+      this.props.history.replace('/');
+      return;
+    }
+
+    console.log('there is a token in AddItem');
   }
 
   inputChangeHandler = (ev) => {

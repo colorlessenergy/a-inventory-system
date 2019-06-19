@@ -10,6 +10,18 @@ class AddRoom extends Component {
     name: ''
   }
 
+  componentWillMount() {
+    console.log('componentWillMount in AddRoom');
+
+    if (!localStorage.token) {
+      console.log('no token in AddRoom');
+      this.props.history.replace('/');
+      return;
+    }
+
+    console.log('there is a token in AddRoom');
+  }
+
   createRoom = (ev) => {
     ev.preventDefault();
 
