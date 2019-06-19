@@ -16,11 +16,16 @@ class UserSettings extends Component {
     inputsClicked: []
   }
   
-  componentDidMount() {
+  componentWillMount() {
+    console.log('componentWillMount in UserSettings');
+
     if (!localStorage.token) {
+      console.log('no token in UserSettings');
       this.props.history.replace('/');
       return;
     }
+
+    console.log('there is a token in UserSettings');
   }
   
   inputChangeHandler = (ev) => {

@@ -30,8 +30,14 @@ class App extends Component {
   componentWillMount () {
     console.log('checking if theres a token when we enter the page');
     if (localStorage.token) {
+      console.log('there is a token when we enter the page');
       this.setState({
         isLoggedIn: true
+      });
+    } else {
+      console.log('no token when we enter the page');
+      this.setState({
+        isLoggedIn: false
       });
     }
   }
@@ -53,16 +59,15 @@ class App extends Component {
       <HashRouter>
         <div>
           <Nav isLoggedIn={this.state.isLoggedIn} />
-          <Route path='/' exact component={Home} />
-          
+          <Route path='/' exact render={(props) => <Home logOutHandler={this.logOutHandler} {...props} />} />
+
           <Route path='/register' exact component={Register} />
           <Route path='/login' exact render={(props) => <Login loginHandler={this.loginHandler} {...props} />} />
           
           <Route path='/rooms' exact component={Rooms} />
           <Route path='/rooms/update/:id' exact component={UpdateRoom} />
           <Route path='/rooms/:id' exact component={Items} />
-          
-          
+
           <Route path='/items/create/:id' exact component={AddItem} />
           <Route path='/items/update/:id' exact component={UpdateItem} />
 

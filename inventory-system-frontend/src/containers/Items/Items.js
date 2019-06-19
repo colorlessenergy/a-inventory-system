@@ -14,15 +14,21 @@ import classes from './Items.module.css';
 let roomId = '';
 
 class Items extends Component {
-  componentDidMount() {
-    console.log('about to request GET http://localhost:3001/rooms/items');
-    console.log('this.props');
-    console.log(this.props);
-    console.log('this.props.match.params.id', this.props.match.params.id);
+  componentWillMount() {
+    console.log('componentWillMount in Items');
+
     if (!localStorage.token) {
+      console.log('no token in Items');
       this.props.history.replace('/');
       return;
     }
+
+    console.log('there is a token in Items');
+  }
+
+  componentDidMount() {
+    console.log('about to request GET http://localhost:3001/rooms/items');
+    console.log('this.props.match.params.id', this.props.match.params.id);
     roomId = this.props.match.params.id;
     console.log('roomId', roomId);
     this.props.initItems(roomId, this.props.history);

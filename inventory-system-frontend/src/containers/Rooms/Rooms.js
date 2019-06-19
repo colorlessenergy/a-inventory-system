@@ -11,13 +11,21 @@ class Rooms extends Component {
     errorMessage: ''
   }
 
-  componentDidMount() {
-    console.log('rooms mounted ', this.props.rooms);
-    console.log(this.props);
+  componentWillMount () {
+    console.log('componentWillMount in Rooms');
+
     if (!localStorage.token) {
+      console.log('no token in Rooms');
       this.props.history.replace('/');
       return;
     }
+
+    console.log('there is a token in Rooms');
+  }
+
+  componentDidMount() {
+    console.log('Rooms mounted ', this.props.rooms);
+    console.log(this.props);
     this.props.getRooms(this.props.history);
   }
 
