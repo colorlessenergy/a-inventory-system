@@ -177,7 +177,7 @@ exports.updateRoomById = function (req, res, next) {
 }
 
 /**
-  delete a room
+  delete a room, find user with the room id, delete it from there too
   @param {String} req.params.id - room id
   @return {Object} - response
 */
@@ -191,7 +191,30 @@ exports.deleteRoomById = function (req, res, next) {
       return res.status(404).send('No room with that ID');
     }
 
-    return res.sendStatus(200);
+    User.findById(req.user.id, function (err, user) {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        return res.status(404).send('No user with that ID');
+      }
+
+      let indexOfRoom = user.rooms.indexOf(String(room._id));
+      
+      if (indexOfRoom !== -1) {
+      user.rooms.splice(indexOfRoom, 1);
+      user.save(function (err, user) {
+        if (err) {
+          return next(err);
+        }
+
+        return res.sendStatus(200);
+      });
+      }
+      else {
+        return res.sendStatus(200);  
+      }
+    });
   });
 }
 
