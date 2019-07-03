@@ -87,6 +87,11 @@
   word-break: break-word;
 }
 
+.color--red {
+  color: #FF3030;
+  font-weight: bold;
+}
+
 @media only screen and (min-width: 600px) {
   .items {
     width: 50%;

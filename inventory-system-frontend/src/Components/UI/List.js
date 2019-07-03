@@ -19,6 +19,26 @@ import deleteIcon from '../../assets/delete-icon.svg';
 
 function List ({ items, url, deleteItemHandler }) {
   console.log(items, 'items that were passed in by props');
+  
+  items = Array.from(items);
+  items.sort(function (a, b) {
+    return b.amount - a.amount;
+  });
+
+  items.sort(function (a, b) {
+    var nameA = a.name.toUpperCase();
+    var nameB = b.name.toUpperCase();
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+    return 0;
+  });
+
+  console.log(items);
+
   let containerClass = null;
   if (url === '/items/update/') {
     containerClass = classes.items;
@@ -30,13 +50,19 @@ function List ({ items, url, deleteItemHandler }) {
   if (items.length !== 0) {
     Items = items.map((item) => {
       if (item.hasOwnProperty('amount')) {
+        let itemClasses = [classes['item__link']];
+        let amountClasses = [classes['item__amount']];
+        if (item.amount === 0) {
+          itemClasses.push(classes['color--red']);
+          amountClasses.push(classes['color--red']);
+        }
         // ==========
         // ITEMS
         // ==========
         return (
           <div key={item._id} className={classes.item}>
             <p className={classes['item__name']}>
-              <Link className={classes['item__link']} to={url + item._id}>
+              <Link className={itemClasses.join(' ')} to={url + item._id}>
                 {item.name}
               </Link>
             </p>
@@ -46,7 +72,7 @@ function List ({ items, url, deleteItemHandler }) {
               <Link className={classes['item__link-icon']} to={url + item._id}>
                 <img className={classes.item__icon} src={editIcon} alt='edit item icon' />
               </Link>
-              <p className={classes['item__amount']}>
+              <p className={amountClasses.join(' ')}>
                 { item.amount }
               </p>
             </div>
