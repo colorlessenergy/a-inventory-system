@@ -177,7 +177,7 @@ exports.updateRoomById = function (req, res, next) {
 }
 
 /**
-  delete a room, find user with the room id, delete it from there too
+  delete a room, find user, delete the room id from there too
   @param {String} req.params.id - room id
   @return {Object} - response
 */
